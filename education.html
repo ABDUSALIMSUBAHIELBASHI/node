@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education Programs</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="social-menu.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding-top: 70px;
+      background: #f9f9f9;
+    }
+
+    .language-selector {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 100;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .language-selector select {
+      padding: 10px 15px;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #667eea;
+      background: white;
+      cursor: pointer;
+      min-width: 120px;
+      font-size: 14px;
+    }
+
+    html[dir="rtl"] .language-selector {
+      left: 20px;
+      right: auto;
+    }
+
+    html[dir="rtl"] .page-header,
+    html[dir="rtl"] .container {
+      text-align: right;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      margin: 3rem 0;
+    }
+
+    .course-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.25);
+    }
+
+    .course-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      font-size: 2.5rem;
+      text-align: center;
+    }
+
+    .course-body {
+      padding: 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .course-title {
+      color: #667eea;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .course-desc {
+      color: #666;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+      line-height: 1.6;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #f0f0f0;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .curriculum {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .curriculum h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .curriculum ol {
+      margin-left: 2rem;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .curriculum li {
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: #667eea;
+      margin: 3rem 0 2rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 2rem;
+      }
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <select id="languageSelect" onchange="changeLanguage(this.value)">
+      <option value="en">🇺🇸 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="ar">🇸🇦 العربية</option>
+    </select>
+  </div>
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1 data-i18n="educationTitle">Education Programs</h1>
+    <p data-i18n="educationDesc">Invest in your future with our comprehensive educational programs</p>
+  </div>
+
+  <div class="container">
+    <!-- Course 1: Web Development -->
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-header">🌐</div>
+        <div class="course-body">
+          <h3 class="course-title">Web Development Bootcamp</h3>
+          <p class="course-desc">Learn to build modern, responsive websites using HTML, CSS, JavaScript, React, and Node.js. Start from basics and become a full-stack developer.</p>
+          <div class="course-meta">
+            <div class="meta-item">⏱️ 12 Weeks</div>
+            <div class="meta-item">👥 Live Classes</div>
+            <div class="meta-item">📜 Certificate</div>
+          </div>
+          <button class="btn">Enroll Now</button>
+        </div>
+      </div>
+
+      <!-- Course 2: Mobile Development -->
+      <div class="course-card">
+        <div class="course-header">📱</div>
+        <div class="course-body">
+          <h3 class="course-title">Mobile App Development</h3>
+          <p class="course-desc">Create powerful applications for iOS and Android using React Native, Flutter, and Swift. Learn to publish apps to app stores.</p>
+          <div class="course-meta">
+            <div class="meta-item">⏱️ 10 Weeks</div>
+            <div class="meta-item">👥 Interactive Sessions</div>
+            <div class="meta-item">📜 Certificate</div>
+          </div>
+          <button class="btn">Enroll Now</button>
+        </div>
+      </div>
+
+      <!-- Course 3: Data Science -->
+      <div class="course-card">
+        <div class="course-header">📊</div>
+        <div class="course-body">
+          <h3 class="course-title">Data Science & AI</h3>
+          <p class="course-desc">Master Python, machine learning, deep learning, and data analysis. Build real-world AI projects and become a data professional.</p>
+          <div class="course-meta">
+            <div class="meta-item">⏱️ 14 Weeks</div>
+            <div class="meta-item">👥 Expert Instructors</div>
+            <div class="meta-item">📜 Certificate</div>
+          </div>
+          <button class="btn">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Course Details -->
+    <div class="section-title">Course Curriculum</div>
+
+    <div class="curriculum">
+      <h3>Web Development Bootcamp - Topics Covered</h3>
+      <ol>
+        <li><strong>HTML & CSS Fundamentals</strong> - Build beautiful web pages</li>
+        <li><strong>JavaScript Programming</strong> - Add interactivity to websites</li>
+        <li><strong>React Framework</strong> - Build modern single-page applications</li>
+        <li><strong>Node.js Backend</strong> - Create server-side applications</li>
+        <li><strong>Express.js</strong> - Build REST APIs and web servers</li>
+        <li><strong>MongoDB</strong> - Work with NoSQL databases</li>
+        <li><strong>Git & GitHub</strong> - Version control and collaboration</li>
+        <li><strong>Deployment</strong> - Deploy apps to production</li>
+        <li><strong>Project Development</strong> - Build real-world applications</li>
+        <li><strong>Job Interview Prep</strong> - Land your first tech job</li>
+      </ol>
+    </div>
+
+    <div class="curriculum">
+      <h3>Mobile App Development - Topics Covered</h3>
+      <ol>
+        <li><strong>Mobile App Basics</strong> - Understand mobile platforms</li>
+        <li><strong>React Native</strong> - Build cross-platform apps</li>
+        <li><strong>Swift & iOS</strong> - Native iOS development</li>
+        <li><strong>Kotlin & Android</strong> - Native Android development</li>
+        <li><strong>UI/UX Design</strong> - Create beautiful interfaces</li>
+        <li><strong>Mobile APIs</strong> - Connect to backend services</li>
+        <li><strong>Storage & Databases</strong> - Local and cloud data storage</li>
+        <li><strong>Testing & Debugging</strong> - Ensure app quality</li>
+        <li><strong>App Store Publishing</strong> - Publish apps to stores</li>
+        <li><strong>Analytics & Monetization</strong> - Track users and earn money</li>
+      </ol>
+    </div>
+
+    <div class="curriculum">
+      <h3>Data Science & AI - Topics Covered</h3>
+      <ol>
+        <li><strong>Python Programming</strong> - Data science language</li>
+        <li><strong>Data Analysis</strong> - Pandas, NumPy, Statistics</li>
+        <li><strong>Data Visualization</strong> - Matplotlib, Seaborn, Plotly</li>
+        <li><strong>Machine Learning</strong> - Supervised & Unsupervised Learning</li>
+        <li><strong>Deep Learning</strong> - Neural Networks, TensorFlow, PyTorch</li>
+        <li><strong>Natural Language Processing</strong> - Text analysis and AI</li>
+        <li><strong>Computer Vision</strong> - Image recognition and processing</li>
+        <li><strong>Big Data</strong> - Spark, Hadoop, distributed computing</li>
+        <li><strong>Model Deployment</strong> - Deploy ML models to production</li>
+        <li><strong>Real Projects</strong> - Build end-to-end AI applications</li>
+      </ol>
+    </div>
+
+    <!-- Additional Courses -->
+    <div class="section-title">Additional Specializations</div>
+
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-header">🎨</div>
+        <div class="course-body">
+          <h3 class="course-title">UI/UX Design</h3>
+          <p class="course-desc">Master design principles, Figma, Adobe XD. Create beautiful user interfaces and improve user experience.</p>
+          <div class="course-meta">
+            <div class="meta-item">⏱️ 8 Weeks</div>
+            <div class="meta-item">📜 Certificate</div>
+          </div>
+          <button class="btn">Enroll Now</button>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-header">☁️</div>
+        <div class="course-body">
+          <h3 class="course-title">Cloud & DevOps</h3>
+          <p class="course-desc">Learn AWS, Docker, Kubernetes, CI/CD. Deploy and manage applications at scale.</p>
+          <div class="course-meta">
+            <div class="meta-item">⏱️ 10 Weeks</div>
+            <div class="meta-item">📜 Certificate</div>
+          </div>
+          <button class="btn">Enroll Now</button>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-header">🔒</div>
+        <div class="course-body">
+          <h3 class="course-title">Cybersecurity</h3>
+          <p class="course-desc">Master security principles, ethical hacking, penetration testing. Protect applications and data.</p>
+          <div class="course-meta">
+            <div class="meta-item">⏱️ 12 Weeks</div>
+            <div class="meta-item">📜 Certificate</div>
+          </div>
+          <button class="btn">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="navbar.js"></script>
+  <script src="social-menu.js"></script>
+  <script>
+    // Education page translations
+    const educationTranslations = {
+      en: {
+        educationTitle: "Education Programs",
+        educationDesc: "Invest in your future with our comprehensive educational programs"
+      },
+      fr: {
+        educationTitle: "Programmes Éducatifs",
+        educationDesc: "Investissez dans votre avenir avec nos programmes éducatifs complets"
+      },
+      ar: {
+        educationTitle: "البرامج التعليمية",
+        educationDesc: "استثمر في مستقبلك مع برامجنا التعليمية الشاملة"
+      }
+    };
+
+    // Merge with existing translations
+    if (typeof translations !== 'undefined') {
+      Object.keys(educationTranslations).forEach(lang => {
+        if (!translations[lang]) translations[lang] = {};
+        translations[lang] = { ...educationTranslations[lang], ...translations[lang] };
+      });
+    }
+
+    // Get current language
+    function getCurrentLanguage() {
+      return localStorage.getItem('language') || 'en';
+    }
+
+    // Get translated text
+    function getTranslation(key) {
+      const lang = getCurrentLanguage();
+      const allTranslations = (typeof translations !== 'undefined') ? translations : educationTranslations;
+      if (allTranslations && allTranslations[lang] && allTranslations[lang][key]) {
+        return allTranslations[lang][key];
+      }
+      return key;
+    }
+
+    // Apply translations
+    function applyTranslations() {
+      const currentLang = getCurrentLanguage();
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = currentLang;
+      
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const text = getTranslation(key);
+        element.textContent = text;
+      });
+    }
+
+    // Change language
+    function changeLanguage(lang) {
+      localStorage.setItem('language', lang);
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = lang;
+      }
+      applyTranslations();
+      document.dispatchEvent(new Event('languageChanged'));
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentLang = getCurrentLanguage();
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = currentLang;
+      }
+      applyTranslations();
+    });
+
+    // Listen for language changes
+    document.addEventListener('languageChanged', function() {
+      applyTranslations();
+    });
+  </script>
+</body>
+</html>

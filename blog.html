@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Latest Articles</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="social-menu.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding-top: 70px;
+      background: #f9f9f9;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .page-title {
+      font-size: 3rem;
+      color: #667eea;
+      margin: 3rem 0 1rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .blog-search {
+      display: flex;
+      gap: 12px;
+      margin: 2rem 0;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .blog-search input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .blog-search input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .search-button, .voice-search-btn, .google-search-btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .google-search-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .google-search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .voice-search-btn {
+      background: #f0f0f0;
+      color: #333;
+      border: 2px solid #ddd;
+    }
+
+    .voice-search-btn:hover {
+      background: #e8e8e8;
+      border-color: #667eea;
+    }
+
+    .voice-search-btn.listening {
+      background: #ff6b6b;
+      color: white;
+      border-color: #ff6b6b;
+      animation: pulse 1s infinite;
+    }
+
+    .microphone-help {
+      background: #f0f7ff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin: 1rem 0;
+      border-radius: 6px;
+      font-size: 14px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .microphone-help.show {
+      display: block;
+    }
+
+    .microphone-help h4 {
+      margin: 0 0 10px 0;
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    .microphone-help ol {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    .microphone-help li {
+      margin: 8px 0;
+      color: #333;
+    }
+
+    .microphone-help strong {
+      color: #667eea;
+      font-weight: 700;
+    }
+
+    .microphone-step {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .microphone-step.chrome {
+      border-left: 4px solid #4285f4;
+    }
+
+    .microphone-step.firefox {
+      border-left: 4px solid #ff7139;
+    }
+
+    .microphone-step.safari {
+      border-left: 4px solid #555;
+    }
+
+    .microphone-step.edge {
+      border-left: 4px solid #0078d4;
+    }
+
+    .microphone-test-btn {
+      background: #4caf50;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+
+    .microphone-test-btn:hover {
+      background: #45a049;
+    }
+
+    .microphone-test-btn.testing {
+      background: #ff9800;
+      cursor: wait;
+    }
+
+    .microphone-status {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .microphone-status.allowed {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .microphone-status.denied {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .microphone-status.testing {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .success-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-modal.show {
+      display: flex;
+    }
+
+    .success-modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 500px;
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .success-modal h2 {
+      color: #4caf50;
+      font-size: 28px;
+      margin: 0 0 15px 0;
+    }
+
+    .success-modal p {
+      color: #333;
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    .success-modal .emoji {
+      font-size: 60px;
+      margin: 20px 0;
+    }
+
+    .success-modal button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .success-modal button:hover {
+      background: #764ba2;
+    }
+
+    .voice-status-bar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #4caf50;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      display: none;
+      z-index: 999;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+      animation: slideDown 0.4s ease;
+    }
+
+    .voice-status-bar.show {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateX(-50%) translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+      50% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .blog-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+    }
+
+    .blog-cover {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .blog-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-meta {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .blog-category {
+      background: #667eea;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    .blog-title {
+      font-size: 1.3rem;
+      color: #333;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .blog-excerpt {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .blog-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .read-more {
+      color: #667eea;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .read-more:hover {
+      color: #764ba2;
+      transform: translateX(4px);
+    }
+
+    .read-time {
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    .featured {
+      grid-column: span 1;
+    }
+
+    .language-selector {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 100;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .language-selector select {
+      padding: 10px 15px;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #667eea;
+      background: white;
+      cursor: pointer;
+      min-width: 120px;
+      font-size: 14px;
+    }
+
+    html[dir="rtl"] .language-selector {
+      left: 20px;
+      right: auto;
+    }
+
+    html[dir="rtl"] .page-title,
+    html[dir="rtl"] .page-subtitle {
+      text-align: left;
+    }
+
+    @media (min-width: 768px) {
+      .featured {
+        grid-column: span 2;
+      }
+
+      .featured .blog-cover {
+        height: 300px;
+      }
+
+      .featured .blog-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <select id="languageSelect" onchange="changeLanguage(this.value)">
+      <option value="en">🇺🇸 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="ar">🇸🇦 العربية</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title" data-i18n="blogTitle">Our Blog</h1>
+    <p class="page-subtitle" data-i18n="blogDesc">Latest articles and insights from our team</p>
+
+    <div class="blog-search">
+      <input type="text" id="searchInput" placeholder="Search articles..." data-i18n-placeholder="blogSearch">
+      <button class="google-search-btn" onclick="searchGoogle(document.getElementById('searchInput').value)" title="Search on Google">
+        🔍 Google
+      </button>
+      <button class="google-search-btn" style="background: #4285f4;" onclick="searchGoogleVoice()" title="Voice search on Google">
+        🎤 Google Voice
+      </button>
+      <button class="voice-search-btn" id="voiceSearchBtn" onclick="startVoiceSearch()" title="Voice search blog">
+        🎤 Blog Voice
+      </button>
+    </div>
+
+    <!-- Search Info Display -->
+    <div id="searchInfo" style="display: none; background: #e3f2fd; padding: 12px 15px; margin: 1rem 0; border-radius: 6px; border-left: 4px solid #2196f3; font-size: 14px; color: #1565c0;">
+      <strong>🔍 Last Search:</strong> <span id="searchInfoText"></span>
+    </div>
+
+    <!-- Microphone Help Section -->
+    <div class="microphone-help" id="microphoneHelp">
+      <h4>🎤 Microphone Permission Required</h4>
+      <p><strong>⚠️ Voice search requires microphone access. Follow these steps:</strong></p>
+      
+      <!-- Chrome Instructions -->
+      <div class="microphone-step chrome">
+        🔵 Google Chrome
+      </div>
+      <ol>
+        <li>Click the <strong>Lock icon 🔒</strong> on the left of the address bar</li>
+        <li>Look for <strong>"Camera & Microphone" or "Microphone"</strong></li>
+        <li>Change setting to <strong>"Allow"</strong></li>
+        <li>Close the menu</li>
+      </ol>
+
+      <!-- Edge Instructions -->
+      <div class="microphone-step edge">
+        🔷 Microsoft Edge
+      </div>
+      <ol>
+        <li>Click the <strong>Lock icon 🔒</strong> at the URL bar</li>
+        <li>Find <strong>"Microphone"</strong> in permissions</li>
+        <li>Select <strong>"Allow"</strong></li>
+        <li>Reload the page (Ctrl+R or Cmd+R)</li>
+      </ol>
+
+      <!-- Safari Instructions -->
+      <div class="microphone-step safari">
+        🍎 Safari (Mac)
+      </div>
+      <ol>
+        <li>Go to <strong>Safari menu → Preferences</strong></li>
+        <li>Click <strong>"Privacy"</strong> tab</li>
+        <li>Select <strong>"Microphone"</strong> on left</li>
+        <li>Find this website and set to <strong>"Allow"</strong></li>
+      </ol>
+
+      <!-- Firefox Instructions -->
+      <div class="microphone-step firefox">
+        🔶 Firefox
+      </div>
+      <ol>
+        <li>Click <strong>≡ Menu (top right)</strong></li>
+        <li>Go to <strong>Settings → Privacy & Security</strong></li>
+        <li>Scroll to <strong>"Permissions → Microphone"</strong></li>
+        <li>Add this website and set to <strong>"Allow"</strong></li>
+      </ol>
+
+      <p><strong>✅ After allowing, follow these steps:</strong></p>
+      <ol>
+        <li><strong>Reload the page</strong> (F5 or Ctrl+R)</li>
+        <li><strong>Click "Test Microphone"</strong> button below</li>
+        <li><strong>Speak something</strong> during the test</li>
+        <li><strong>See success message?</strong> → Voice search is ready!</li>
+      </ol>
+
+      <button class="microphone-test-btn" id="testBtn" onclick="testMicrophone()">🎧 Test Microphone</button>
+      <button class="microphone-test-btn" style="background: #2196f3;" onclick="document.getElementById('microphoneHelp').classList.remove('show')">✕ Hide This Guide</button>
+      <div id="microphoneStatus"></div>
+
+      <p style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px; color: #666; font-size: 12px;">
+        <strong>💡 Tip:</strong> Check that your microphone is plugged in and working on your system level first.
+      </p>
+    </div>
+
+    <div class="blog-grid" id="blogGrid">
+      <!-- Blog posts will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="success-modal" id="successModal">
+    <div class="success-modal-content">
+      <div class="emoji">✅</div>
+      <h2>Success!</h2>
+      <p id="successMessage">Voice search is working!</p>
+      <button onclick="closeSuccessModal()">Continue</button>
+    </div>
+  </div>
+
+  <!-- Voice Status Bar -->
+  <div class="voice-status-bar" id="voiceStatusBar">
+    🎤 Voice recognized: <span id="voiceStatusText"></span>
+  </div>
+
+  <script src="navbar.js"></script>
+  <script src="social-menu.js"></script>
+  <script src="api.js"></script>
+  <script>
+    const blogText = {
+      en: {
+        blogTitle: "Our Blog",
+        blogDesc: "Latest articles and insights from our team",
+        blogSearch: "Search articles...",
+      },
+      fr: {
+        blogTitle: "Notre Blog",
+        blogDesc: "Derniers articles et informations de notre équipe",
+        blogSearch: "Rechercher les articles...",
+      },
+      ar: {
+        blogTitle: "مدونتنا",
+        blogDesc: "أحدث المقالات والرؤى من فريقنا",
+        blogSearch: "البحث في المقالات...",
+      }
+    };
+
+    // Merge with existing translations
+    if (typeof translations !== 'undefined') {
+      Object.keys(blogText).forEach(lang => {
+        if (!translations[lang]) translations[lang] = {};
+        translations[lang] = { ...blogText[lang], ...translations[lang] };
+      });
+    }
+
+    const blogPosts = [
+      {
+        id: 1,
+        title: "Getting Started with React Hooks",
+        excerpt: "Learn how to use React Hooks to manage state and side effects in your functional components.",
+        category: "React",
+        date: "Feb 10, 2026",
+        readTime: "5 min read",
+        featured: true,
+        emoji: "⚛️"
+      },
+      {
+        id: 2,
+        title: "Web Design Trends 2026",
+        excerpt: "Discover the latest web design trends that are shaping the digital landscape this year.",
+        category: "Design",
+        date: "Feb 8, 2026",
+        readTime: "7 min read",
+        featured: true,
+        emoji: "🎨"
+      },
+      {
+        id: 3,
+        title: "API Security Best Practices",
+        excerpt: "Essential security practices for building robust and secure REST APIs.",
+        category: "Backend",
+        date: "Feb 5, 2026",
+        readTime: "8 min read",
+        featured: false,
+        emoji: "🔒"
+      },
+      {
+        id: 4,
+        title: "Mobile App Performance Optimization",
+        excerpt: "Tips and tricks to improve your mobile app's performance and user experience.",
+        category: "Mobile",
+        date: "Feb 1, 2026",
+        readTime: "6 min read",
+        featured: false,
+        emoji: "📱"
+      },
+      {
+        id: 5,
+        title: "Cloud Deployment Guide",
+        excerpt: "Complete guide to deploying your applications on cloud platforms.",
+        category: "DevOps",
+        date: "Jan 28, 2026",
+        readTime: "10 min read",
+        featured: false,
+        emoji: "☁️"
+      },
+      {
+        id: 6,
+        title: "UX Research Fundamentals",
+        excerpt: "Understanding the basics of user research and its importance in design.",
+        category: "UX",
+        date: "Jan 25, 2026",
+        readTime: "6 min read",
+        featured: false,
+        emoji: "🔍"
+      }
+    ];
+
+    let allBlogPosts = [];
+
+    // Get current language
+    function getCurrentLanguage() {
+      return localStorage.getItem('language') || 'en';
+    }
+
+    // Get translated text
+    function getTranslation(key) {
+      const lang = getCurrentLanguage();
+      const allTranslations = (typeof translations !== 'undefined') ? translations : blogText;
+      if (allTranslations && allTranslations[lang] && allTranslations[lang][key]) {
+        return allTranslations[lang][key];
+      }
+      return key;
+    }
+
+    // Apply translations
+    function applyTranslations() {
+      const currentLang = getCurrentLanguage();
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = currentLang;
+      
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const text = getTranslation(key);
+        element.textContent = text;
+      });
+
+      // Update search placeholder
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.placeholder = getTranslation('blogSearch');
+      }
+    }
+
+    // Change language
+    function changeLanguage(lang) {
+      localStorage.setItem('language', lang);
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = lang;
+      }
+      applyTranslations();
+      document.dispatchEvent(new Event('languageChanged'));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set language selector to current language
+      const currentLang = getCurrentLanguage();
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = currentLang;
+      }
+      applyTranslations();
+      loadBlog();
+      setupSearch();
+      
+      // Check microphone permission on load
+      showMicrophoneHelp();
+    });
+
+    // Listen for language changes
+    document.addEventListener('languageChanged', function() {
+      applyTranslations();
+    });
+
+    async function loadBlog() {
+      try {
+        const posts = await API.blog.getAll();
+        if (posts && posts.length > 0) {
+          allBlogPosts = posts;
+        } else {
+          allBlogPosts = blogPosts;
+        }
+        renderBlog(allBlogPosts);
+      } catch (error) {
+        console.error('Error loading blog:', error);
+        allBlogPosts = blogPosts;
+        renderBlog(allBlogPosts);
+      }
+    }
+
+    function renderBlog(posts) {
+      const grid = document.getElementById('blogGrid');
+      grid.innerHTML = posts.map(post => `
+        <article class="blog-card ${post.featured ? 'featured' : ''}">
+          <div class="blog-cover">${post.emoji || '📝'}</div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-category">${post.category}</span>
+              <span>${new Date(post.date).toLocaleDateString() || post.date}</span>
+            </div>
+            <h3 class="blog-title">${post.title}</h3>
+            <p class="blog-excerpt">${post.excerpt}</p>
+            <div class="blog-footer">
+              <a href="#" class="read-more">Read More →</a>
+              <span class="read-time">${post.readTime || '5 min read'}</span>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function setupSearch() {
+      const searchInput = document.getElementById('searchInput');
+      
+      // Enter key triggers Google search
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const query = this.value.trim();
+          if (query) {
+            // Show search name in status bar
+            showVoiceStatus(`Searching: "${query}"`);
+            
+            // Show success modal before opening Google
+            showSuccessModal(
+              '🔍 Google Search',
+              `Searching for: "${query}"\n\nOpening Google...`
+            );
+            
+            // Open Google search after modal
+            setTimeout(() => {
+              searchGoogle(query);
+            }, 800);
+          }
+        }
+      });
+      
+      // Local blog search on input
+      searchInput.addEventListener('input', async function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        if (searchTerm === '') {
+          renderBlog(allBlogPosts);
+          document.getElementById('searchInfo').style.display = 'none';
+          return;
+        }
+
+        // Display search query for local blog search
+        const searchInfo = document.getElementById('searchInfo');
+        const searchInfoText = document.getElementById('searchInfoText');
+        searchInfoText.textContent = `"${searchTerm}" (blog)`;
+        searchInfo.style.display = 'block';
+
+        try {
+          const results = await API.blog.search(searchTerm);
+          renderBlog(results || []);
+        } catch (error) {
+          // Fallback to local search
+          const filtered = allBlogPosts.filter(post =>
+            post.title.toLowerCase().includes(searchTerm) ||
+            post.excerpt.toLowerCase().includes(searchTerm) ||
+            post.category.toLowerCase().includes(searchTerm)
+          );
+          renderBlog(filtered);
+        }
+      });
+    }
+
+    // Close success modal
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.remove('show');
+    }
+
+    // Show voice status bar
+    function showVoiceStatus(text) {
+      const statusBar = document.getElementById('voiceStatusBar');
+      const statusText = document.getElementById('voiceStatusText');
+      statusText.textContent = text;
+      statusBar.classList.add('show');
+      
+      setTimeout(() => {
+        statusBar.classList.remove('show');
+      }, 2000);
+    }
+
+    // Show success modal
+    function showSuccessModal(title, message) {
+      const modal = document.getElementById('successModal');
+      const msgElement = document.getElementById('successMessage');
+      modal.querySelector('h2').textContent = title;
+      msgElement.textContent = message;
+      modal.classList.add('show');
+      
+      setTimeout(() => {
+        closeSuccessModal();
+      }, 3000);
+    }
+
+    // Check microphone permission status
+    async function checkMicrophonePermission() {
+      try {
+        const result = await navigator.permissions.query({ name: 'microphone' });
+        return result.state;
+      } catch (error) {
+        console.error('Permission check not supported:', error);
+        return 'unknown';
+      }
+    }
+
+    // Show/hide microphone help
+    async function showMicrophoneHelp() {
+      const helpDiv = document.getElementById('microphoneHelp');
+      const permission = await checkMicrophonePermission();
+      
+      if (permission === 'denied') {
+        helpDiv.classList.add('show');
+      } else {
+        helpDiv.classList.remove('show');
+      }
+    }
+
+    // Test Microphone - Simple recording test
+    async function testMicrophone() {
+      const statusDiv = document.getElementById('microphoneStatus');
+      const testBtn = document.getElementById('testBtn');
+      
+      try {
+        // Request microphone access
+        statusDiv.innerHTML = '<div class="microphone-status testing">🎤 Requesting microphone access...</div>';
+        testBtn.disabled = true;
+        testBtn.classList.add('testing');
+        testBtn.textContent = '⏳ Testing...';
+        
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          audio: { 
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true 
+          } 
+        });
+        
+        // Give user 3 seconds to speak
+        statusDiv.innerHTML = '<div class="microphone-status testing">🎤 Microphone detected! Speak something...</div>';
+        
+        setTimeout(() => {
+          // Stop the stream
+          stream.getTracks().forEach(track => track.stop());
+          
+          // Success! Microphone accessible
+          statusDiv.innerHTML = '<div class="microphone-status allowed">✅ SUCCESS! Microphone is working perfectly!\n\nYou can now use:\n🎤 Blog Voice - Search articles by voice\n🎤 Google Voice - Search Google by voice</div>';
+          testBtn.disabled = false;
+          testBtn.classList.remove('testing');
+          testBtn.textContent = '🎧 Test Microphone';
+          
+          // Hide help after successful test
+          setTimeout(() => {
+            document.getElementById('microphoneHelp').classList.remove('show');
+          }, 3000);
+        }, 3000);
+        
+      } catch (error) {
+        console.error('Microphone test error:', error);
+        
+        testBtn.disabled = false;
+        testBtn.classList.remove('testing');
+        testBtn.textContent = '🎧 Test Microphone';
+        
+        let message = '❌ Microphone access denied';
+        let instructions = '';
+        
+        if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+          message = '❌ Microphone permission blocked';
+          instructions = '<p style="margin-top: 10px; color: #d32f2f;"><strong>🔒 To fix:</strong></p><ol style="padding-left: 20px;"><li>Reload the page (F5 or Ctrl+R)</li><li>Click the lock 🔒 icon on the address bar</li><li>Find "Microphone" and change to "Allow"</li><li>Click "Test Microphone" again</li></ol>';
+        } else if (error.name === 'NotFoundError') {
+          message = '❌ No microphone device found';
+          instructions = '<p style="margin-top: 10px; color: #d32f2f;"><strong>⚠️ Check:</strong></p><ul style="padding-left: 20px;"><li>Your microphone is plugged in</li><li>Microphone is not muted (check system settings)</li><li>Another app isn\'t using the microphone</li><li>Windows: Settings → Privacy → Microphone (Allow)</li></ul>';
+        } else if (error.name === 'NotReadableError') {
+          message = '❌ Microphone is in use by another app';
+          instructions = '<p style="margin-top: 10px; color: #d32f2f;"><strong>To fix:</strong></p><ul style="padding-left: 20px;"><li>Close other apps using microphone (Zoom, Skype, etc.)</li><li>Close browser and reopen</li><li>Try testing again</li></ul>';
+        }
+        
+        statusDiv.innerHTML = `<div class="microphone-status denied">${message}</div>${instructions}`;
+      }
+    }
+
+    // Google Search function
+    function searchGoogle(query) {
+      if (!query.trim()) {
+        alert('Please enter a search term');
+        return;
+      }
+      
+      // Display search query
+      const searchInfo = document.getElementById('searchInfo');
+      const searchInfoText = document.getElementById('searchInfoText');
+      searchInfoText.textContent = `"${query}"`;
+      searchInfo.style.display = 'block';
+      
+      const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+      window.open(googleUrl, '_blank');
+    }
+
+    // Google Voice Search - Voice input that goes directly to Google
+    function searchGoogleVoice() {
+      const searchInput = document.getElementById('searchInput');
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      
+      if (!SpeechRecognition) {
+        alert('❌ Voice search not supported. Please use Chrome, Edge, or Safari.');
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = getCurrentLanguage() === 'ar' ? 'ar-SA' : (getCurrentLanguage() === 'fr' ? 'fr-FR' : 'en-US');
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      let voiceText = '';
+      const btn = event.target;
+      const originalText = btn.textContent;
+      
+      btn.textContent = '🎤 Listening...';
+      btn.disabled = true;
+      btn.style.opacity = '0.6';
+
+      recognition.onstart = function() {
+        showVoiceStatus('Waiting for speech...');
+      };
+
+      recognition.onresult = function(event) {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            voiceText = event.results[i][0].transcript.trim();
+            searchInput.value = voiceText;
+            
+            // Show voice recognized status
+            showVoiceStatus(`"${voiceText}"`);
+            
+            // Show processing message
+            btn.textContent = '🔄 Opening Google...';
+            
+            // Automatically search on Google after short delay
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.disabled = false;
+              btn.style.opacity = '1';
+              
+              // Show success before opening Google
+              showSuccessModal(
+                '✅ Success!',
+                `🎤 Voice recognized: "${voiceText}"\n\n🔍 Opening Google Search...`
+              );
+              
+              // Open Google search
+              setTimeout(() => {
+                searchGoogle(voiceText);
+              }, 1000);
+            }, 500);
+          }
+        }
+      };
+
+      recognition.onerror = function(event) {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        
+        if (event.error !== 'no-speech') {
+          let errorMsg = '❌ Microphone Error\n\n';
+          if (event.error === 'not-allowed' || event.error === 'permission-denied') {
+            errorMsg += 'Permission denied.\n\nClick below for detailed instructions by browser';
+            document.getElementById('microphoneHelp').classList.add('show');
+            document.getElementById('microphoneHelp').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            errorMsg += event.error;
+          }
+          alert(errorMsg);
+        }
+      };
+
+      recognition.onend = function() {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.style.opacity = '1';
+      };
+
+      try {
+        recognition.start();
+      } catch (error) {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        console.error('Voice error:', error);
+      }
+    }
+
+    // Voice Search function (Web Speech API)
+    function startVoiceSearch() {
+      const voiceBtn = document.getElementById('voiceSearchBtn');
+      const searchInput = document.getElementById('searchInput');
+      
+      // Check if browser supports Web Speech API
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      
+      if (!SpeechRecognition) {
+        alert('❌ Voice search not supported in your browser.\n\nPlease use:\n• Google Chrome\n• Microsoft Edge\n• Safari');
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = getCurrentLanguage() === 'ar' ? 'ar-SA' : (getCurrentLanguage() === 'fr' ? 'fr-FR' : 'en-US');
+      recognition.continuous = false;
+      recognition.interimResults = true;
+
+      // Start listening
+      voiceBtn.classList.add('listening');
+      voiceBtn.textContent = '🎤 Listening...';
+
+      recognition.onstart = function() {
+        voiceBtn.classList.add('listening');
+        voiceBtn.textContent = '🎤 Listening... say something!';
+      };
+
+      recognition.onresult = function(event) {
+        let interimTranscript = '';
+        
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          
+          if (event.results[i].isFinal) {
+            searchInput.value = transcript.trim();
+            voiceBtn.classList.remove('listening');
+            voiceBtn.textContent = '🎤 ✅ Got it!';
+            
+            // Display search query
+            const searchInfo = document.getElementById('searchInfo');
+            const searchInfoText = document.getElementById('searchInfoText');
+            searchInfoText.textContent = `"${transcript.trim()}" (blog voice)`;
+            searchInfo.style.display = 'block';
+            
+            // Show voice recognized
+            showVoiceStatus(`"${transcript.trim()}"`);
+            
+            // Show success modal
+            showSuccessModal(
+              '✅ Voice Recognized!',
+              `🎤 You said: "${transcript.trim()}"\n\n📰 Filtering blog articles...`
+            );
+            
+            // Trigger search
+            const searchEvent = new Event('input', { bubbles: true });
+            searchInput.dispatchEvent(searchEvent);
+            
+            // Reset button after 1 second
+            setTimeout(() => {
+              voiceBtn.textContent = '🎤 Blog Voice';
+            }, 1000);
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+      };
+
+      recognition.onerror = function(event) {
+        voiceBtn.classList.remove('listening');
+        voiceBtn.textContent = '🎤 Blog Voice';
+        console.error('Voice recognition error:', event.error);
+        
+        let errorMessage = '';
+        switch(event.error) {
+          case 'not-allowed':
+          case 'permission-denied':
+            errorMessage = '❌ Microphone permission denied!\n\n👇 Detailed instructions have appeared below.\n\nFollow the steps for your browser and click "Test Microphone" to verify.';
+            showMicrophoneHelp();
+            document.getElementById('microphoneHelp').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            break;
+          case 'no-speech':
+            errorMessage = '❌ No speech detected. Try again and speak clearly.';
+            break;
+          case 'network':
+            errorMessage = '❌ Network error. Check your internet connection.';
+            break;
+          case 'service-not-allowed':
+            errorMessage = '❌ Voice search service is not available in your region.';
+            break;
+          default:
+            errorMessage = `❌ Error: ${event.error}. Please try again.`;
+        }
+        
+        if (event.error !== 'no-speech') {
+          alert(errorMessage);
+          if (event.error === 'not-allowed' || event.error === 'permission-denied') {
+            showMicrophoneHelp();
+          }
+        }
+      };
+
+      recognition.onend = function() {
+        voiceBtn.classList.remove('listening');
+        if (voiceBtn.textContent !== '🎤 ✅ Got it!') {
+          voiceBtn.textContent = '🎤 Voice';
+        }
+      };
+
+      try {
+        recognition.start();
+      } catch (error) {
+        voiceBtn.classList.remove('listening');
+        voiceBtn.textContent = '🎤 Voice';
+        console.error('Error starting voice recognition:', error);
+        alert('❌ Error starting voice search. Please try again.');
+      }
+    }
+  </script>
+</body>
+</html>

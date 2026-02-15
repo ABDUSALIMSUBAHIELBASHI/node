@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional ,Portfolio -l,m Full-Stack develper</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="social-menu.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding-top: 70px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      opacity: 0.95;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+      margin: 4rem 0;
+    }
+
+    .page-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .page-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: 3.5rem;
+    }
+
+    .page-body {
+      padding: 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-title {
+      color: #667eea;
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+    }
+
+    .page-desc {
+      color: #666;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+      line-height: 1.8;
+    }
+
+    .page-features {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .feature-list li {
+      padding: 0.3rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .page-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .page-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    section {
+      background: white;
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      margin: 3rem 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      color: #667eea;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    section p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .section-card {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s ease;
+    }
+
+    .section-card:hover {
+      background: #f0f0f0;
+      border-left-color: #764ba2;
+      transform: translateX(5px);
+    }
+
+    .section-card h3 {
+      color: #667eea;
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+
+    .section-card p {
+      text-align: left;
+      color: #666;
+      margin: 0;
+    }
+
+    .site-map {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .map-item {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border-top: 4px solid #667eea;
+    }
+
+    .map-item h4 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .map-item a {
+      display: block;
+      color: #667eea;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .map-item a:hover {
+      color: #764ba2;
+      transform: translateX(5px);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .pages-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section h2 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1 data-i18n="indexHeroTitle">
+      ✨ My Professional Portfolio</h1>
+   <div> <img src="g.jpeg" height="200px" width="200px" alt=""></div>
+    <p data-i18n="indexHeroDesc">Complete Full-Stack Website with Everything Connected</p>
+  </div>
+
+  <div class="container">
+    <!-- Pages Overview -->
+    <section>
+      <h2 data-i18n="indexPagesTitle">🌐Website Pages</h2>
+      <p data-i18n="indexPagesDesc">Explore all the sections of this professional portfolio website</p>
+      
+      <div class="pages-grid">
+        <!-- Home Page -->
+        <div class="page-card">
+          <div class="page-header">🏠</div>
+          <div class="page-body">
+            <h3 class="page-title" data-i18n="indexHomeTitle">Home Portfolio</h3>
+            <p class="page-desc" data-i18n="indexHomeDesc">Complete professional portfolio with all sections: About, Services, Skills, Experience, and Contact Form</p>
+            <div class="page-features">
+              <ul class="feature-list">
+                <li data-i18n="indexHomeF1">About Me section</li>
+                <li data-i18n="indexHomeF2">Services overview</li>
+                <li data-i18n="indexHomeF3">Skills display</li>
+                <li data-i18n="indexHomeF4">Experience timeline</li>
+                <li data-i18n="indexHomeF5">Contact form</li>
+              </ul>
+            </div>
+            <a href="home.html" class="page-link" data-i18n="indexViewHome">View Home →</a>
+          </div>
+        </div>
+
+        <!-- Education Page -->
+        <div class="page-card">
+          <div class="page-header">📚</div>
+          <div class="page-body">
+            <h3 class="page-title" data-i18n="indexEduTitle">Education</h3>
+            <p class="page-desc" data-i18n="indexEduDesc">Comprehensive educational programs and courses with curriculum details and enrollment options</p>
+            <div class="page-features">
+              <ul class="feature-list">
+                <li data-i18n="indexEduF1">Web Development</li>
+                <li data-i18n="indexEduF2">Mobile Apps</li>
+                <li data-i18n="indexEduF3">Data Science & AI</li>
+                <li data-i18n="indexEduF4">UI/UX Design</li>
+                <li data-i18n="indexEduF5">Cloud & DevOps</li>
+              </ul>
+            </div>
+            <a href="education.html" class="page-link" data-i18n="indexViewCourses">View Courses →</a>
+          </div>
+        </div>
+
+        <!-- Portfolio Page -->
+        <div class="page-card">
+          <div class="page-header">🎯</div>
+          <div class="page-body">
+            <h3 class="page-title" data-i18n="indexPortTitle">Portfolio</h3>
+            <p class="page-desc" data-i18n="indexPortDesc">Showcase of completed projects with filtering by category and detailed project information</p>
+            <div class="page-features">
+              <ul class="feature-list">
+                <li data-i18n="indexPortF1">150+ Projects</li>
+                <li data-i18n="indexPortF2">Category filters</li>
+                <li data-i18n="indexPortF3">Project details</li>
+                <li data-i18n="indexPortF4">Live demos</li>
+                <li data-i18n="indexPortF5">GitHub links</li>
+              </ul>
+            </div>
+            <a href="portfolio.html" class="page-link" data-i18n="indexViewProjects">View Projects →</a>
+          </div>
+        </div>
+
+        <!-- Team Page -->
+        <div class="page-card">
+          <div class="page-header">👥</div>
+          <div class="page-body">
+            <h3 class="page-title" data-i18n="indexTeamTitle">Team</h3>
+            <p class="page-desc" data-i18n="indexTeamDesc">Meet the talented team members with their roles, skills, and social media profiles</p>
+            <div class="page-features">
+              <ul class="feature-list">
+                <li data-i18n="indexTeamF1">6 Team members</li>
+                <li data-i18n="indexTeamF2">Skills display</li>
+                <li data-i18n="indexTeamF3">Social links</li>
+                <li data-i18n="indexTeamF4">Experience levels</li>
+                <li data-i18n="indexTeamF5">Contact info</li>
+              </ul>
+            </div>
+            <a href="team.html" class="page-link" data-i18n="indexMeetTeam">Meet Team →</a>
+          </div>
+        </div>
+
+        <!-- Blog Page -->
+        <div class="page-card">
+          <div class="page-header">📝</div>
+          <div class="page-body">
+            <h3 class="page-title" data-i18n="indexBlogTitle">Blog</h3>
+            <p class="page-desc" data-i18n="indexBlogDesc">Latest articles and insights with search functionality and category filtering</p>
+            <div class="page-features">
+              <ul class="feature-list">
+                <li data-i18n="indexBlogF1">Latest articles</li>
+                <li data-i18n="indexBlogF2">Search function</li>
+                <li data-i18n="indexBlogF3">Category filters</li>
+                <li data-i18n="indexBlogF4">Read time</li>
+                <li data-i18n="indexBlogF5">Featured posts</li>
+              </ul>
+            </div>
+            <a href="blog.html" class="page-link" data-i18n="indexReadBlog">Read Blog →</a>
+          </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div class="page-card">
+          <div class="page-header">📊</div>
+          <div class="page-body">
+            <h3 class="page-title" data-i18n="indexDashTitle">Dashboard</h3>
+            <p class="page-desc" data-i18n="indexDashDesc">User dashboard for managing personal data and profile information</p>
+            <div class="page-features">
+              <ul class="feature-list">
+                <li data-i18n="indexDashF1">User profile</li>
+                <li data-i18n="indexDashF2">Data management</li>
+                <li data-i18n="indexDashF3">Analytics</li>
+                <li data-i18n="indexDashF4">Settings</li>
+                <li data-i18n="indexDashF5">Activity logs</li>
+              </ul>
+            </div>
+            <a href="dashboard.html" class="page-link" data-i18n="indexGoDash">Go Dashboard →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section>
+      <h2 data-i18n="indexStatsTitle">📈 Website Statistics</h2>
+      <p data-i18n="indexStatsDesc">Professional metrics and achievements</p>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">9</div>
+          <div class="stat-label" data-i18n="indexStat1">Complete Pages</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">150+</div>
+          <div class="stat-label" data-i18n="indexStat2">Portfolio Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="stat-label" data-i18n="indexStat3">Languages Supported</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">24</div>
+          <div class="stat-label" data-i18n="indexStat4">API Endpoints</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10+</div>
+          <div class="stat-label" data-i18n="indexStat5">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">99%</div>
+          <div class="stat-label" data-i18n="indexStat6">Client Satisfaction</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section>
+      <h2 data-i18n="indexFeaturesTitle">🎯 Complete Features</h2>
+      <p data-i18n="indexFeaturesDesc">Everything included in one portfolio website</p>
+      
+      <div class="section-grid">
+        <div class="section-card">
+          <h3 data-i18n="indexFeat1T">🏠 Home (home.html)</h3>
+          <p data-i18n="indexFeat1D">About, Services, Skills, Experience, Contact Form</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexFeat2T">📚 Education (education.html)</h3>
+          <p data-i18n="indexFeat2D">Web Dev, Mobile, Data Science, UI/UX, Cloud, Security</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexFeat3T">🎯 Portfolio (portfolio.html)</h3>
+          <p data-i18n="indexFeat3D">Project showcase with filtering and details</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexFeat4T">👥 Team (team.html)</h3>
+          <p data-i18n="indexFeat4D">Team members with skills and social profiles</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexFeat5T">📝 Blog (blog.html)</h3>
+          <p data-i18n="indexFeat5D">Articles with search and category filtering</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexFeat6T">🔐 Authentication</h3>
+          <p data-i18n="indexFeat6D">Login and registration pages ready</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sections Breakdown -->
+    <section>
+      <h2 data-i18n="indexSectionsTitle">📑 All Sections Included</h2>
+      <p data-i18n="indexSectionsDesc">Complete coverage of all requested sections</p>
+      
+      <div class="section-grid">
+        <div class="section-card">
+          <h3 data-i18n="indexSec1T">✅ Home</h3>
+          <p data-i18n="indexSec1D">Landing page with hero section</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexSec2T">✅ Education</h3>
+          <p data-i18n="indexSec2D">Courses and learning programs</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexSec3T">✅ Services</h3>
+          <p data-i18n="indexSec3D">Service offerings in home page</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexSec4T">✅ About Us</h3>
+          <p data-i18n="indexSec4D">About section with mission & vision</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexSec5T">✅ Skills</h3>
+          <p data-i18n="indexSec5D">Technical skills showcase</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexSec6T">✅ Languages</h3>
+          <p data-i18n="indexSec6D">EN, FR, AR with language selector</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexSec7T">✅ Experience</h3>
+          <p data-i18n="indexSec7D">Career timeline and achievements</p>
+        </div>
+        <div class="section-card">
+          <h3 data-i18n="indexSec8T">✅ Contact</h3>
+          <p data-i18n="indexSec8D">Contact form connected to backend</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sitemap -->
+    <section>
+      <h2 data-i18n="indexNavTitle">🗺️ Website Navigation</h2>
+      <p data-i18n="indexNavDesc">Quick links to all pages</p>
+      
+      <div class="site-map">
+        <div class="map-item">
+          <h4 data-i18n="indexCorePages">Core Pages</h4>
+          <a href="index.html" data-i18n="indexLink1">📄 Index (This Page)</a>
+          <a href="home.html" data-i18n="indexLink2">🏠 Home Portfolio</a>
+          <a href="education.html" data-i18n="indexLink3">📚 Education</a>
+        </div>
+        
+        <div class="map-item">
+          <h4 data-i18n="indexShowcase">Showcase</h4>
+          <a href="portfolio.html" data-i18n="indexLink4">🎯 Projects</a>
+          <a href="team.html" data-i18n="indexLink5">👥 Team</a>
+          <a href="blog.html" data-i18n="indexLink6">📝 Blog</a>
+        </div>
+        
+        <div class="map-item">
+          <h4 data-i18n="indexUserArea">User Area</h4>
+          <a href="login.html" data-i18n="indexLink7">🔐 Login</a>
+          <a href="register.html" data-i18n="indexLink8">📝 Register</a>
+          <a href="dashboard.html" data-i18n="indexLink9">📊 Dashboard</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="navbar.js"></script>
+  <script src="social-menu.js"></script>
+  <script src="api.js"></script>
+  <script>
+    // Index page translations
+    const indexTranslations = {
+      en: {
+        indexHeroTitle: "✨ My Professional Portfolio",
+        indexHeroDesc: "Complete Full-Stack Website with Everything Connected",
+        indexPagesTitle: "🌐 Website Pages",
+        indexPagesDesc: "Explore all the sections of this professional portfolio website",
+        indexHomeTitle: "Home Portfolio",
+        indexHomeDesc: "Complete professional portfolio with all sections: About, Services, Skills, Experience, and Contact Form",
+        indexHomeF1: "About Me section",
+        indexHomeF2: "Services overview",
+        indexHomeF3: "Skills display",
+        indexHomeF4: "Experience timeline",
+        indexHomeF5: "Contact form",
+        indexViewHome: "View Home →",
+        indexEduTitle: "Education",
+        indexEduDesc: "Comprehensive educational programs and courses with curriculum details and enrollment options",
+        indexEduF1: "Web Development",
+        indexEduF2: "Mobile Apps",
+        indexEduF3: "Data Science & AI",
+        indexEduF4: "UI/UX Design",
+        indexEduF5: "Cloud & DevOps",
+        indexViewCourses: "View Courses →",
+        indexPortTitle: "Portfolio",
+        indexPortDesc: "Showcase of completed projects with filtering by category and detailed project information",
+        indexPortF1: "150+ Projects",
+        indexPortF2: "Category filters",
+        indexPortF3: "Project details",
+        indexPortF4: "Live demos",
+        indexPortF5: "GitHub links",
+        indexViewProjects: "View Projects →",
+        indexTeamTitle: "Team",
+        indexTeamDesc: "Meet the talented team members with their roles, skills, and social media profiles",
+        indexTeamF1: "6 Team members",
+        indexTeamF2: "Skills display",
+        indexTeamF3: "Social links",
+        indexTeamF4: "Experience levels",
+        indexTeamF5: "Contact info",
+        indexMeetTeam: "Meet Team →",
+        indexBlogTitle: "Blog",
+        indexBlogDesc: "Latest articles and insights with search functionality and category filtering",
+        indexBlogF1: "Latest articles",
+        indexBlogF2: "Search function",
+        indexBlogF3: "Category filters",
+        indexBlogF4: "Read time",
+        indexBlogF5: "Featured posts",
+        indexReadBlog: "Read Blog →",
+        indexDashTitle: "Dashboard",
+        indexDashDesc: "User dashboard for managing personal data and profile information",
+        indexDashF1: "User profile",
+        indexDashF2: "Data management",
+        indexDashF3: "Analytics",
+        indexDashF4: "Settings",
+        indexDashF5: "Activity logs",
+        indexGoDash: "Go Dashboard →",
+        indexStatsTitle: "📈 Website Statistics",
+        indexStatsDesc: "Professional metrics and achievements",
+        indexStat1: "Complete Pages",
+        indexStat2: "Portfolio Projects",
+        indexStat3: "Languages Supported",
+        indexStat4: "API Endpoints",
+        indexStat5: "Years Experience",
+        indexStat6: "Client Satisfaction",
+        indexFeaturesTitle: "🎯 Complete Features",
+        indexFeaturesDesc: "Everything included in one portfolio website",
+        indexFeat1T: "🏠 Home (home.html)",
+        indexFeat1D: "About, Services, Skills, Experience, Contact Form",
+        indexFeat2T: "📚 Education (education.html)",
+        indexFeat2D: "Web Dev, Mobile, Data Science, UI/UX, Cloud, Security",
+        indexFeat3T: "🎯 Portfolio (portfolio.html)",
+        indexFeat3D: "Project showcase with filtering and details",
+        indexFeat4T: "👥 Team (team.html)",
+        indexFeat4D: "Team members with skills and social profiles",
+        indexFeat5T: "📝 Blog (blog.html)",
+        indexFeat5D: "Articles with search and category filtering",
+        indexFeat6T: "🔐 Authentication",
+        indexFeat6D: "Login and registration pages ready",
+        indexSectionsTitle: "📑 All Sections Included",
+        indexSectionsDesc: "Complete coverage of all requested sections",
+        indexSec1T: "✅ Home",
+        indexSec1D: "Landing page with hero section",
+        indexSec2T: "✅ Education",
+        indexSec2D: "Courses and learning programs",
+        indexSec3T: "✅ Services",
+        indexSec3D: "Service offerings in home page",
+        indexSec4T: "✅ About Us",
+        indexSec4D: "About section with mission & vision",
+        indexSec5T: "✅ Skills",
+        indexSec5D: "Technical skills showcase",
+        indexSec6T: "✅ Languages",
+        indexSec6D: "EN, FR, AR with language selector",
+        indexSec7T: "✅ Experience",
+        indexSec7D: "Career timeline and achievements",
+        indexSec8T: "✅ Contact",
+        indexSec8D: "Contact form connected to backend",
+        indexNavTitle: "🗺️ Website Navigation",
+        indexNavDesc: "Quick links to all pages",
+        indexCorePages: "Core Pages",
+        indexLink1: "📄 Index (This Page)",
+        indexLink2: "🏠 Home Portfolio",
+        indexLink3: "📚 Education",
+        indexShowcase: "Showcase",
+        indexLink4: "🎯 Projects",
+        indexLink5: "👥 Team",
+        indexLink6: "📝 Blog",
+        indexUserArea: "User Area",
+        indexLink7: "🔐 Login",
+        indexLink8: "📝 Register",
+        indexLink9: "📊 Dashboard",
+      },
+      fr: {
+        indexHeroTitle: "✨ Mon Portfolio Professionnel",
+        indexHeroDesc: "Site Web Complet Full-Stack avec Tout Interconnecté",
+        indexPagesTitle: "🌐 Pages du Site Web",
+        indexPagesDesc: "Explorez toutes les sections de ce site portfolio professionnel",
+        indexHomeTitle: "Portfolio d'Accueil",
+        indexHomeDesc: "Portfolio professionnel complet avec toutes les sections: À propos, Services, Compétences, Expérience et Formulaire de Contact",
+        indexHomeF1: "Section À propos",
+        indexHomeF2: "Aperçu des services",
+        indexHomeF3: "Affichage des compétences",
+        indexHomeF4: "Chronologie de l'expérience",
+        indexHomeF5: "Formulaire de contact",
+        indexViewHome: "Voir l'accueil →",
+        indexEduTitle: "Éducation",
+        indexEduDesc: "Programmes éducatifs complets et cours avec détails du curriculum et options d'inscription",
+        indexEduF1: "Développement Web",
+        indexEduF2: "Applications Mobiles",
+        indexEduF3: "Science des Données & IA",
+        indexEduF4: "Design UI/UX",
+        indexEduF5: "Cloud & DevOps",
+        indexViewCourses: "Voir les Cours →",
+        indexPortTitle: "Portfolio",
+        indexPortDesc: "Présentation des projets terminés avec filtrage par catégorie et informations détaillées sur les projets",
+        indexPortF1: "150+ Projets",
+        indexPortF2: "Filtres de catégorie",
+        indexPortF3: "Détails du projet",
+        indexPortF4: "Démos en direct",
+        indexPortF5: "Liens GitHub",
+        indexViewProjects: "Voir les Projets →",
+        indexTeamTitle: "Équipe",
+        indexTeamDesc: "Rencontrez les membres talentueux de l'équipe avec leurs rôles, compétences et profils de médias sociaux",
+        indexTeamF1: "6 Membres de l'équipe",
+        indexTeamF2: "Affichage des compétences",
+        indexTeamF3: "Liens sociaux",
+        indexTeamF4: "Niveaux d'expérience",
+        indexTeamF5: "Informations de contact",
+        indexMeetTeam: "Rencontrez l'Équipe →",
+        indexBlogTitle: "Blog",
+        indexBlogDesc: "Derniers articles et perspectives avec fonctionnalité de recherche et filtrage par catégorie",
+        indexBlogF1: "Derniers articles",
+        indexBlogF2: "Fonction de recherche",
+        indexBlogF3: "Filtres de catégorie",
+        indexBlogF4: "Temps de lecture",
+        indexBlogF5: "Articles en vedette",
+        indexReadBlog: "Lire le Blog →",
+        indexDashTitle: "Tableau de Bord",
+        indexDashDesc: "Tableau de bord utilisateur pour gérer les données personnelles et les informations de profil",
+        indexDashF1: "Profil utilisateur",
+        indexDashF2: "Gestion des données",
+        indexDashF3: "Analytique",
+        indexDashF4: "Paramètres",
+        indexDashF5: "Journaux d'activité",
+        indexGoDash: "Aller au Tableau de Bord →",
+        indexStatsTitle: "📈 Statistiques du Site Web",
+        indexStatsDesc: "Métriques professionnelles et réalisations",
+        indexStat1: "Pages Complètes",
+        indexStat2: "Projets Portfolio",
+        indexStat3: "Langues Supportées",
+        indexStat4: "Points de Terminaison API",
+        indexStat5: "Années d'Expérience",
+        indexStat6: "Satisfaction du Client",
+        indexFeaturesTitle: "🎯 Fonctionnalités Complètes",
+        indexFeaturesDesc: "Tout inclus dans un seul site portfolio",
+        indexFeat1T: "🏠 Accueil (home.html)",
+        indexFeat1D: "À propos, Services, Compétences, Expérience, Formulaire de Contact",
+        indexFeat2T: "📚 Éducation (education.html)",
+        indexFeat2D: "Web Dev, Mobile, Science des Données, UI/UX, Cloud, Sécurité",
+        indexFeat3T: "🎯 Portfolio (portfolio.html)",
+        indexFeat3D: "Présentation des projets avec filtrage et détails",
+        indexFeat4T: "👥 Équipe (team.html)",
+        indexFeat4D: "Membres de l'équipe avec compétences et profils sociaux",
+        indexFeat5T: "📝 Blog (blog.html)",
+        indexFeat5D: "Articles avec recherche et filtrage par catégorie",
+        indexFeat6T: "🔐 Authentification",
+        indexFeat6D: "Pages de connexion et d'inscription prêtes",
+        indexSectionsTitle: "📑 Toutes les Sections Incluses",
+        indexSectionsDesc: "Couverture complète de toutes les sections demandées",
+        indexSec1T: "✅ Accueil",
+        indexSec1D: "Page d'accueil avec section héros",
+        indexSec2T: "✅ Éducation",
+        indexSec2D: "Cours et programmes d'apprentissage",
+        indexSec3T: "✅ Services",
+        indexSec3D: "Offres de services sur la page d'accueil",
+        indexSec4T: "✅ À Propos de Nous",
+        indexSec4D: "Section À propos avec mission et vision",
+        indexSec5T: "✅ Compétences",
+        indexSec5D: "Présentation des compétences techniques",
+        indexSec6T: "✅ Langues",
+        indexSec6D: "EN, FR, AR avec sélecteur de langue",
+        indexSec7T: "✅ Expérience",
+        indexSec7D: "Chronologie professionnelle et réalisations",
+        indexSec8T: "✅ Contact",
+        indexSec8D: "Formulaire de contact connecté au backend",
+        indexNavTitle: "🗺️ Navigation du Site Web",
+        indexNavDesc: "Liens rapides vers toutes les pages",
+        indexCorePages: "Pages Principales",
+        indexLink1: "📄 Index (Cette Page)",
+        indexLink2: "🏠 Portfolio d'Accueil",
+        indexLink3: "📚 Éducation",
+        indexShowcase: "Galerie",
+        indexLink4: "🎯 Projets",
+        indexLink5: "👥 Équipe",
+        indexLink6: "📝 Blog",
+        indexUserArea: "Espace Utilisateur",
+        indexLink7: "🔐 Connexion",
+        indexLink8: "📝 Inscription",
+        indexLink9: "📊 Tableau de Bord",
+      },
+      ar: {
+        indexHeroTitle: "✨ محفظتي المهنية",
+        indexHeroDesc: "موقع ويب متكامل كامل مع كل شيء متصل",
+        indexPagesTitle: "🌐 صفحات الموقع",
+        indexPagesDesc: "استكشف جميع أقسام موقع المحفظة المهني هذا",
+        indexHomeTitle: "محفظة الرئيسية",
+        indexHomeDesc: "محفظة مهنية كاملة مع جميع الأقسام: حول، الخدمات، المهارات، الخبرة، واستمارة التواصل",
+        indexHomeF1: "قسم حول",
+        indexHomeF2: "نظرة عامة على الخدمات",
+        indexHomeF3: "عرض المهارات",
+        indexHomeF4: "جدول الخبرة الزمني",
+        indexHomeF5: "استمارة تواصل",
+        indexViewHome: "عرض الرئيسية →",
+        indexEduTitle: "التعليم",
+        indexEduDesc: "برامج تعليمية شاملة وموارد تدريسية مع تفاصيل المناهج وخيارات التسجيل",
+        indexEduF1: "تطوير الويب",
+        indexEduF2: "تطبيقات الهاتف المحمول",
+        indexEduF3: "العلوم والذكاء الاصطناعي",
+        indexEduF4: "تصميم واجهة المستخدم",
+        indexEduF5: "السحابة والعمليات",
+        indexViewCourses: "عرض الدورات →",
+        indexPortTitle: "المحفظة",
+        indexPortDesc: "عرض المشاريع المكتملة مع التصفية حسب الفئة ومعلومات مفصلة عن المشروع",
+        indexPortF1: "150+ مشروع",
+        indexPortF2: "مرشحات الفئات",
+        indexPortF3: "تفاصيل المشروع",
+        indexPortF4: "عروض مباشرة",
+        indexPortF5: "روابط GitHub",
+        indexViewProjects: "عرض المشاريع →",
+        indexTeamTitle: "الفريق",
+        indexTeamDesc: "التقِ بأعضاء الفريق الموهوبين مع أدوارهم ومهاراتهم وملفاتهم الاجتماعية",
+        indexTeamF1: "6 أعضاء فريق",
+        indexTeamF2: "عرض المهارات",
+        indexTeamF3: "روابط اجتماعية",
+        indexTeamF4: "مستويات الخبرة",
+        indexTeamF5: "معلومات الاتصال",
+        indexMeetTeam: "التقِ بالفريق →",
+        indexBlogTitle: "المدونة",
+        indexBlogDesc: "أحدث المقالات والرؤية مع وظيفة البحث والتصفية حسب الفئة",
+        indexBlogF1: "أحدث المقالات",
+        indexBlogF2: "وظيفة البحث",
+        indexBlogF3: "مرشحات الفئات",
+        indexBlogF4: "وقت القراءة",
+        indexBlogF5: "المقالات المميزة",
+        indexReadBlog: "اقرأ المدونة →",
+        indexDashTitle: "لوحة المراقبة",
+        indexDashDesc: "لوحة معلومات المستخدم لإدارة البيانات الشخصية ومعلومات الملف الشخصي",
+        indexDashF1: "ملف المستخدم",
+        indexDashF2: "إدارة البيانات",
+        indexDashF3: "التحليلات",
+        indexDashF4: "الإعدادات",
+        indexDashF5: "سجلات النشاط",
+        indexGoDash: "انتقل إلى لوحة المراقبة →",
+        indexStatsTitle: "📈 إحصائيات الموقع",
+        indexStatsDesc: "المقاييس المهنية والإنجازات",
+        indexStat1: "صفحات كاملة",
+        indexStat2: "مشاريع المحفظة",
+        indexStat3: "اللغات المدعومة",
+        indexStat4: "عناصر API",
+        indexStat5: "سنوات الخبرة",
+        indexStat6: "رضا العملاء",
+        indexFeaturesTitle: "🎯 الميزات الكاملة",
+        indexFeaturesDesc: "كل شيء مدرج في موقع محفظة واحد",
+        indexFeat1T: "🏠 الرئيسية (home.html)",
+        indexFeat1D: "حول، الخدمات، المهارات، الخبرة، استمارة التواصل",
+        indexFeat2T: "📚 التعليم (education.html)",
+        indexFeat2D: "تطوير الويب، الهاتف المحمول، العلوم، واجهات المستخدم، السحابة، الأمان",
+        indexFeat3T: "🎯 المحفظة (portfolio.html)",
+        indexFeat3D: "عرض المشاريع مع التصفية والتفاصيل",
+        indexFeat4T: "👥 الفريق (team.html)",
+        indexFeat4D: "أعضاء الفريق مع المهارات والملفات الاجتماعية",
+        indexFeat5T: "📝 المدونة (blog.html)",
+        indexFeat5D: "مقالات مع البحث والتصفية حسب الفئة",
+        indexFeat6T: "🔐 المصادقة",
+        indexFeat6D: "صفحات التسجيل والتسجيل جاهزة",
+        indexSectionsTitle: "📑 جميع الأقسام المضمنة",
+        indexSectionsDesc: "الغطاء الشامل لجميع الأقسام المطلوبة",
+        indexSec1T: "✅ الرئيسية",
+        indexSec1D: "صفحة هبوط مع قسم البطل",
+        indexSec2T: "✅ التعليم",
+        indexSec2D: "الدورات وبرامج التعلم",
+        indexSec3T: "✅ الخدمات",
+        indexSec3D: "عروض الخدمات على الصفحة الرئيسية",
+        indexSec4T: "✅ من نحن",
+        indexSec4D: "قسم حول مع المهمة والرؤية",
+        indexSec5T: "✅ المهارات",
+        indexSec5D: "عرض المهارات التقنية",
+        indexSec6T: "✅ اللغات",
+        indexSec6D: "EN و FR و AR مع محدد اللغة",
+        indexSec7T: "✅ الخبرة",
+        indexSec7D: "التطور الوظيفي والإنجازات",
+        indexSec8T: "✅ الاتصال",
+        indexSec8D: "نموذج الاتصال المتصل بالواجهة الخلفية",
+        indexNavTitle: "🗺️ ملاحة الموقع",
+        indexNavDesc: "روابط سريعة لجميع الصفحات",
+        indexCorePages: "الصفحات الرئيسية",
+        indexLink1: "📄 الفهرس (هذه الصفحة)",
+        indexLink2: "🏠 محفظة الرئيسية",
+        indexLink3: "📚 التعليم",
+        indexShowcase: "المعرض",
+        indexLink4: "🎯 المشاريع",
+        indexLink5: "👥 الفريق",
+        indexLink6: "📝 المدونة",
+        indexUserArea: "منطقة المستخدم",
+        indexLink7: "🔐 تسجيل الدخول",
+        indexLink8: "📝 التسجيل",
+        indexLink9: "📊 لوحة المراقبة",
+      }
+    };
+
+    // Merge with existing translations from navbar
+    if (typeof translations !== 'undefined') {
+      Object.keys(indexTranslations).forEach(lang => {
+        if (!translations[lang]) translations[lang] = {};
+        translations[lang] = { ...indexTranslations[lang], ...translations[lang] };
+      });
+    }
+
+    // Get current language
+    function getCurrentLanguage() {
+      return localStorage.getItem('language') || 'en';
+    }
+
+    // Get translated text
+    function getTranslation(key) {
+      const lang = getCurrentLanguage();
+      if (translations && translations[lang] && translations[lang][key]) {
+        return translations[lang][key];
+      }
+      return key;
+    }
+
+    // Apply translations to all elements
+    function applyTranslations() {
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const text = getTranslation(key);
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+          element.placeholder = text;
+        } else {
+          element.textContent = text;
+        }
+      });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      applyTranslations();
+    });
+
+    // Listen for language changes
+    document.addEventListener('languageChanged', function() {
+      applyTranslations();
+    });
+  </script>
+</body>
+</html>

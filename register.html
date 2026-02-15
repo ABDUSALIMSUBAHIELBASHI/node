@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="social-menu.css">
+  <style>
+    .language-selector {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 100;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .language-selector select {
+      padding: 10px 15px;
+      border: 2px solid #2563eb;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #2563eb;
+      background: white;
+      cursor: pointer;
+      min-width: 120px;
+      font-size: 14px;
+    }
+
+    html[dir="rtl"] .language-selector {
+      left: 20px;
+      right: auto;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <select id="languageSelect" onchange="changeLanguage(this.value)">
+      <option value="en">🇺🇸 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="ar">🇸🇦 العربية</option>
+    </select>
+  </div>
+
+  <div class="bg-white p-8 rounded shadow-md w-96">
+    <h2 class="text-3xl font-bold text-center mb-2 text-blue-600" data-i18n="registerTitle">Sign Up</h2>
+    <p class="text-center text-gray-600 mb-6 text-sm" data-i18n="registerDesc">Create your account to get started</p>
+
+    <input id="firstName" type="text" placeholder="First Name" class="w-full p-2 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500" data-i18n="firstNamePlaceholder">
+    <input id="lastName" type="text" placeholder="Last Name" class="w-full p-2 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500" data-i18n="lastNamePlaceholder">
+    <input id="email" type="email" placeholder="Email" class="w-full p-2 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500" data-i18n="emailPlaceholder">
+    <div class="relative mb-4">
+      <input id="password" type="password" placeholder="Password" class="w-full p-2 border rounded pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500" data-i18n="passwordPlaceholder">
+      <button type="button" id="togglePasswordRegister" class="absolute right-2 top-2 text-gray-600 hover:text-gray-900">
+        <svg id="eyeIconRegister" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </button>
+    </div>
+
+    <button id="registerBtn" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold transition" data-i18n="registerButton">
+      Sign Up
+    </button>
+
+    <p class="mt-6 text-center text-gray-600 text-sm">
+      <span data-i18n="haveAccount">Already have an account?</span>
+      <a href="login.html" class="text-blue-600 font-semibold hover:underline" data-i18n="loginLink">Log In</a>
+    </p>
+  </div>
+
+  <script src="navbar.js" defer></script>
+  <script src="main.js" defer></script>
+  <script src="social-menu.js" defer></script>
+  <script>
+    // Register page translations
+    const registerTranslations = {
+      en: {
+        registerTitle: "Sign Up",
+        registerDesc: "Create your account to get started",
+        firstNamePlaceholder: "First Name",
+        lastNamePlaceholder: "Last Name",
+        emailPlaceholder: "Email",
+        passwordPlaceholder: "Password",
+        registerButton: "Sign Up",
+        haveAccount: "Already have an account?",
+        loginLink: "Log In"
+      },
+      fr: {
+        registerTitle: "S'inscrire",
+        registerDesc: "Créez votre compte pour commencer",
+        firstNamePlaceholder: "Prénom",
+        lastNamePlaceholder: "Nom de famille",
+        emailPlaceholder: "Email",
+        passwordPlaceholder: "Mot de passe",
+        registerButton: "S'inscrire",
+        haveAccount: "Vous avez déjà un compte ?",
+        loginLink: "Se connecter"
+      },
+      ar: {
+        registerTitle: "إنشاء حساب",
+        registerDesc: "أنشئ حسابك لتبدأ",
+        firstNamePlaceholder: "الاسم الأول",
+        lastNamePlaceholder: "اسم العائلة",
+        emailPlaceholder: "البريد الإلكتروني",
+        passwordPlaceholder: "كلمة المرور",
+        registerButton: "إنشاء حساب",
+        haveAccount: "هل لديك حساب بالفعل؟",
+        loginLink: "تسجيل الدخول"
+      }
+    };
+
+    // Merge with existing translations
+    if (typeof translations !== 'undefined') {
+      Object.keys(registerTranslations).forEach(lang => {
+        if (!translations[lang]) translations[lang] = {};
+        translations[lang] = { ...registerTranslations[lang], ...translations[lang] };
+      });
+    }
+
+    // Get current language
+    function getCurrentLanguage() {
+      return localStorage.getItem('language') || 'en';
+    }
+
+    // Get translated text
+    function getTranslation(key) {
+      const lang = getCurrentLanguage();
+      const allTranslations = (typeof translations !== 'undefined') ? translations : registerTranslations;
+      if (allTranslations && allTranslations[lang] && allTranslations[lang][key]) {
+        return allTranslations[lang][key];
+      }
+      return key;
+    }
+
+    // Apply translations
+    function applyTranslations() {
+      const currentLang = getCurrentLanguage();
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = currentLang;
+      
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const text = getTranslation(key);
+        if (element.tagName === 'INPUT') {
+          element.placeholder = text;
+        } else {
+          element.textContent = text;
+        }
+      });
+    }
+
+    // Change language
+    function changeLanguage(lang) {
+      localStorage.setItem('language', lang);
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = lang;
+      }
+      applyTranslations();
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentLang = getCurrentLanguage();
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = currentLang;
+      }
+      applyTranslations();
+    });
+
+    // Listen for language changes
+    document.addEventListener('languageChanged', function() {
+      applyTranslations();
+    });
+  </script>
+</body>
+</html>

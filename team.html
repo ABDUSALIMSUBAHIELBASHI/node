@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="social-menu.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding-top: 70px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+    }
+
+    .language-selector {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 100;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .language-selector select {
+      padding: 10px 15px;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #667eea;
+      background: white;
+      cursor: pointer;
+      min-width: 120px;
+      font-size: 14px;
+    }
+
+    html[dir="rtl"] .language-selector {
+      left: 20px;
+      right: auto;
+    }
+
+    html[dir="rtl"] .page-title,
+    html[dir="rtl"] .page-subtitle,
+    html[dir="rtl"] .team-card {
+      text-align: right;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .page-title {
+      font-size: 3rem;
+      color: #667eea;
+      margin: 3rem 0 1rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2.5rem;
+      margin: 3rem 0;
+    }
+
+    .team-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .team-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+    }
+
+    .member-image {
+      width: 100%;
+      height: 280px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+
+    .member-info {
+      padding: 2rem;
+    }
+
+    .member-name {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .member-role {
+      color: #667eea;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .member-bio {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #667eea;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .social-link:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .skill-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      background: #f0f0f0;
+      color: #667eea;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <select id="languageSelect" onchange="changeLanguage(this.value)">
+      <option value="en">🇺🇸 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="ar">🇸🇦 العربية</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title" data-i18n="teamTitle">Meet Our Team</h1>
+    <p class="page-subtitle" data-i18n="teamDesc">Talented professionals dedicated to excellence</p>
+
+    <div class="team-grid" id="teamGrid">
+      <!-- Team members will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script src="navbar.js"></script>
+  <script src="social-menu.js"></script>
+  <script src="api.js"></script>
+  <script>
+    const teamText = {
+      en: {
+        teamTitle: "Meet Our Team",
+        teamDesc: "Talented professionals dedicated to excellence",
+      },
+      fr: {
+        teamTitle: "Rencontrez Notre Équipe",
+        teamDesc: "Des professionnels talentueux dédiés à l'excellence",
+      },
+      ar: {
+        teamTitle: "تعرف على فريقنا",
+        teamDesc: "محترفون موهوبون مكرسون للتميز",
+      }
+    };
+
+    // Merge with existing translations
+    if (typeof translations !== 'undefined') {
+      Object.keys(teamText).forEach(lang => {
+        if (!translations[lang]) translations[lang] = {};
+        translations[lang] = { ...teamText[lang], ...translations[lang] };
+      });
+    }
+
+    const teamMembers = [
+      {
+        id: 1,
+        name: "Abdu salim",
+        role: "Full Stack Developer",
+        bio: "10+ years of experience in web development",
+        emoji: "👨‍💻",
+        skills: ["React", "Node.js", "Python"],
+        social: {
+          facebook: "https://facebook.com/john.dev",
+          twitter: "https://twitter.com/johndev",
+          linkedin: "https://www.linkedin.com/in/johndev",
+          website: "https://https://gooodidae.netlify.app/"
+        }
+      },
+      {
+        id: 2,
+        name: "Abdu salim",
+        role: "UI/UX Designer",
+        bio: "Creative designer with award-winning portfolio",
+        emoji: "👩‍🎨",
+        skills: ["Figma", "Adobe XD", "UI Design"],
+        social: {
+          linkedin: "https://linkedin.com/sarah.design",
+          youtube: "https://youtube.com/sarahdesign",
+          whatsapp: "https://whatsapp.com/in/sarahdesign",
+          website: "https://gooodidae.netlify.ap"
+        }
+      },
+      {
+        id: 3,
+        name: "Mike Backend",
+        role: "Backend Expert",
+        bio: "Specialist in cloud architecture and databases",
+        emoji: "👨‍💼",
+        skills: ["Docker", "Kubernetes", "AWS"],
+        social: {
+          github: "https://github.com/mike.backend",
+          google: "https://google.com/mikebackend",
+          linkedin: "https://www.linkedin.com/in/mikebackend",
+          website: "https://gooodidae.netlify.app/"
+        }
+      },
+      {
+        id: 4,
+        name: "Abdu  Mobile",
+        role: "Mobile Developer",
+        bio: "Expert in iOS and Android development",
+        emoji: "👩‍💻",
+        skills: ["Flutter", "Swift", "Kotlin"],
+        social: {
+          chatGPT: "https://chatGPT.com/emma.mobile",
+          grok: "https://grok.com/emmamobile",
+          tiktok: "https://tiktok.com/in/emmamobile",
+          website: "https://gooodidae.netlify.app/"
+        }
+      },
+      {
+        id: 5,
+        name: "salim Marketing",
+        role: "Marketing Manager",
+        bio: "Digital marketing and social media expert",
+        emoji: "👨‍📊",
+        skills: ["Analytics", "SEO", "Content"],
+        social: {
+          netlify: "https://netlify.com/alex.marketing",
+          gemini: "https://gemini.com/alexmarketing",
+          w3school: "https://www.w3schools.com/alexmarketing",
+          website: "https://gooodidae.netlify.app/"
+        }
+      },
+      {
+        id: 6,
+        name: "Abdu Manager",
+        role: "Project Manager",
+        bio: "Expert in agile and project management",
+        emoji: "👩‍💼",
+        skills: ["Agile", "Leadership", "Planning"],
+        social: {
+          deepesek: "https://deepesek.com/lisa.manager",
+          mongodb: "https://mongodb.com/lsmanager",
+          airforshare: "https://www.airforshare.com/in/lisamanager",
+          website: "https://gooodidae.netlify.app/"
+        }
+      }
+    ];
+
+    // Get current language
+    function getCurrentLanguage() {
+      return localStorage.getItem('language') || 'en';
+    }
+
+    // Get translated text
+    function getTranslation(key) {
+      const lang = getCurrentLanguage();
+      const allTranslations = (typeof translations !== 'undefined') ? translations : teamText;
+      if (allTranslations && allTranslations[lang] && allTranslations[lang][key]) {
+        return allTranslations[lang][key];
+      }
+      return key;
+    }
+
+    // Apply translations
+    function applyTranslations() {
+      const currentLang = getCurrentLanguage();
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = currentLang;
+      
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const text = getTranslation(key);
+        element.textContent = text;
+      });
+    }
+
+    // Change language
+    function changeLanguage(lang) {
+      localStorage.setItem('language', lang);
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = lang;
+      }
+      applyTranslations();
+      document.dispatchEvent(new Event('languageChanged'));
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set language selector to current language
+      const currentLang = getCurrentLanguage();
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = currentLang;
+      }
+      applyTranslations();
+      renderTeam();
+    });
+
+    // Listen for language changes
+    document.addEventListener('languageChanged', function() {
+      applyTranslations();
+    });
+
+    function renderTeam() {
+      const grid = document.getElementById('teamGrid');
+      grid.innerHTML = teamMembers.map(member => {
+        const facebook = member.social && member.social.facebook ? member.social.facebook : '#';
+        const twitter = member.social && member.social.twitter ? member.social.twitter : '#';
+        const linkedin = member.social && member.social.linkedin ? member.social.linkedin : '#';
+        const website = member.social && member.social.website ? member.social.website : (linkedin !== '#' ? linkedin : '#');
+
+        return `
+        <div class="team-card">
+          <div class="member-image">${member.emoji}</div>
+          <div class="member-info">
+            <h3 class="member-name"><a href="${website}" target="_blank" rel="noopener">${member.name}</a></h3>
+            <p class="member-role">${member.role}</p>
+            <p class="member-bio">${member.bio}</p>
+            <div class="skill-badges">
+              ${member.skills.map(skill => `<span class="badge">${skill}</span>`).join('')}
+            </div>
+            <div class="social-links">
+              <a href="${facebook}" class="social-link" target="_blank" rel="noopener" title="Facebook">f</a>
+              <a href="${twitter}" class="social-link" target="_blank" rel="noopener" title="Twitter">t</a>
+              <a href="${linkedin}" class="social-link" target="_blank" rel="noopener" title="LinkedIn">in</a>
+            </div>
+          </div>
+        </div>
+      `;
+      }).join('');
+    }
+  </script>
+</body>
+</html>

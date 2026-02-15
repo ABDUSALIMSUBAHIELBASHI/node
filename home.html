@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Portfolio - Home</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="social-menu.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding-top: 70px;
+      background: #f9f9f9;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: white;
+      color: #667eea;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 5rem 2rem;
+      background: white;
+      margin: 2rem 0;
+      border-radius: 12px;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      color: #667eea;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    section p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #f0f0f0;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+      border-color: #667eea;
+    }
+
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      color: #667eea;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .card p {
+      color: #666;
+      text-align: left;
+      margin: 0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-item {
+      background: #f9f9f9;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s ease;
+    }
+
+    .skill-item:hover {
+      background: #f0f0f0;
+      border-left-color: #764ba2;
+    }
+
+    .skill-item h4 {
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .timeline-item {
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      background: #f9f9f9;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      padding-left: 2rem;
+    }
+
+    .timeline-item h3 {
+      color: #667eea;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-item .date {
+      color: #999;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item p {
+      color: #666;
+      text-align: left;
+      margin: 0;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #eee;
+      border-radius: 6px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .share-section {
+      margin-top: 2.5rem;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+      border-radius: 12px;
+    }
+
+    .share-section h3 {
+      font-size: 1.3rem;
+      color: #333;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .share-buttons {
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.3rem;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .share-btn:hover {
+      transform: scale(1.15);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .share-btn.facebook {
+      background: #1877F2;
+    }
+
+    .share-btn.twitter {
+      background: #1DA1F2;
+    }
+
+    .share-btn.linkedin {
+      background: #0A66C2;
+    }
+
+    .share-btn.whatsapp {
+      background: #25D366;
+    }
+
+    .share-btn.email {
+      background: #EA4335;
+    }
+
+    .share-text {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      section h2 {
+        font-size: 2rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        min-width: 200px;
+      }
+    }
+
+    [dir="rtl"] {
+      text-align: right;
+    }
+
+    [dir="rtl"] .timeline-item {
+      border-left: none;
+      border-right: 4px solid #667eea;
+      padding-left: 1.5rem;
+      padding-right: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1 data-i18n="heroTitle">Welcome to My Portfolio</h1>
+    <p data-i18n="heroDesc">Professional full-stack developer creating amazing digital solutions</p>
+    <div class="cta-buttons">
+      <a href="portfolio.html" class="btn btn-primary" data-i18n="viewPortfolio">View Portfolio</a>
+      <a href="#contact" class="btn btn-secondary" data-i18n="contactMe">Contact Me</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- About Section -->
+    <section id="about">
+      <h2 data-i18n="aboutTitle">About Me</h2>
+      <p data-i18n="aboutDesc">Passionate about creating beautiful, functional web applications</p>
+      
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">💼</div>
+          <h3 data-i18n="professional">Professional</h3>
+          <p data-i18n="professionalDesc">With 10+ years of experience in web development and design</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3 data-i18n="focused">Focused</h3>
+          <p data-i18n="focusedDesc">Committed to delivering high-quality solutions on time</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🚀</div>
+          <h3 data-i18n="innovative">Innovative</h3>
+          <p data-i18n="innovativeDesc">Always exploring new technologies and best practices</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-number">10+</div>
+          <div class="stat-label" data-i18n="yearsExperience">Years Experience</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">150+</div>
+          <div class="stat-label" data-i18n="projectsCompleted">Projects Completed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">200+</div>
+          <div class="stat-label" data-i18n="clientsServed">Clients Served</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">99%</div>
+          <div class="stat-label" data-i18n="satisfactionRate">Satisfaction Rate</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+      <h2 data-i18n="servicesTitle">Services</h2>
+      <p data-i18n="servicesDesc">Complete range of development and design services</p>
+      
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">🌐</div>
+          <h3 data-i18n="webDevelopment">Web Development</h3>
+          <p data-i18n="webDevDesc">Full-stack web applications using modern technologies</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📱</div>
+          <h3 data-i18n="mobileApps">Mobile Apps</h3>
+          <p data-i18n="mobileAppsDesc">Responsive and interactive mobile applications</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <h3 data-i18n="uiDesign">UI/UX Design</h3>
+          <p data-i18n="uiDesignDesc">Beautiful interfaces and seamless user experiences</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚙️</div>
+          <h3 data-i18n="consulting">Consulting</h3>
+          <p data-i18n="consultingDesc">Expert advice for your technology needs</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">☁️</div>
+          <h3 data-i18n="cloudServices">Cloud Services</h3>
+          <p data-i18n="cloudServicesDesc">Scalable cloud infrastructure and deployment</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h3 data-i18n="security">Security</h3>
+          <p data-i18n="securityDesc">Secure and protected applications</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <h2 data-i18n="skillsTitle">Skills</h2>
+      <p data-i18n="skillsDesc">Technical expertise across multiple domains</p>
+      
+      <div class="skills-grid">
+        <div class="skill-item">
+          <h4>Frontend</h4>
+          <p>HTML, CSS, JavaScript, React, Vue, Angular</p>
+        </div>
+        <div class="skill-item">
+          <h4>Backend</h4>
+          <p>Node.js, Express, Python, Django, Java</p>
+        </div>
+        <div class="skill-item">
+          <h4>Database</h4>
+          <p>MongoDB, PostgreSQL, MySQL, Redis</p>
+        </div>
+        <div class="skill-item">
+          <h4>Tools</h4>
+          <p>Git, Docker, Webpack, Linux, AWS</p>
+        </div>
+        <div class="skill-item">
+          <h4>Design</h4>
+          <p>Figma, Adobe XD, Sketch, Photoshop</p>
+        </div>
+        <div class="skill-item">
+          <h4>DevOps</h4>
+          <p>CI/CD, Docker, Kubernetes, Jenkins</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+      <h2 data-i18n="experienceTitle">Experience</h2>
+      <p data-i18n="experienceDesc">Career progression and notable achievements</p>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3 data-i18n="seniorDeveloper">Senior Full Stack Developer</h3>
+          <div class="date">2026- Present</div>
+          <p data-i18n="seniorDevDesc">Leading development of enterprise applications and mentoring junior developers</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h3 data-i18n="projectManager">Project Manager</h3>
+          <div class="date">2025 - 2026</div>
+          <p data-i18n="projectMgrDesc">Managed 50+ projects with teams of 5-10 developers</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h3 data-i18n="fullStackDeveloper">Full Stack Developer</h3>
+          <div class="date">2018 - 2020</div>
+          <p data-i18n="fullStackDevDesc">Developed complex web applications for various clients</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h3 data-i18n="juniorDeveloper">Junior Developer</h3>
+          <div class="date">2016 - 2018</div>
+          <p data-i18n="juniorDevDesc">Started learning and contributing to web development projects</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2 data-i18n="contactTitle">Get In Touch</h2>
+      <p data-i18n="contactDesc">Send me a message and I'll respond as soon as possible</p>
+      
+      <div class="contact-form">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name" data-i18n="nameLabel">Your Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" data-i18n="emailLabel">Email Address</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject" data-i18n="subjectLabel">Subject</label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="message" data-i18n="messageLabel">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;" data-i18n="sendMessage">Send Message</button>
+        </form>
+      </div>
+
+      <div style="margin-top: 3rem; text-align: center; background: #f9f9f9; padding: 2rem; border-radius: 12px;">
+        <h3 style="color: #333; margin-bottom: 1rem;">Contact Information</h3>
+        <p style="margin: 0.5rem 0; color: #666;">📧 Email: <strong>salimabdu759@gmail.com</strong></p>
+        <p style="margin: 0.5rem 0; color: #666;">📱 Phone: <strong>+250739390715-0735281339</strong></p>
+        <p style="margin: 0.5rem 0; color: #666;">📍 Location: <strong>Main idea, City, kigali Rwanda</strong></p>
+      </div>
+
+      <!-- Social Media Share Section -->
+      <div class="share-section">
+        <h3 data-i18n="shareTitle">Share My Contact.</h3>
+        <div class="share-buttons">
+          <button class="share-btn facebook" id="shareBtn-facebook" title="Share on Facebook" onclick="shareOnSocial('facebook')">
+            f
+          </button>
+          <button class="share-btn twitter" id="shareBtn-twitter" title="Share on Twitter" onclick="shareOnSocial('twitter')">
+            𝕏
+          </button>
+          
+          <button class="share-btn linkedin" id="shareBtn-linkedin" title="Share on LinkedIn" onclick="shareOnSocial('linkedin')">
+            in
+          </button>
+          <button class="share-btn whatsapp" id="shareBtn-whatsapp" title="Share on WhatsApp" onclick="shareOnSocial('whatsapp')">
+            💬
+          </button>
+          <button class="share-btn email" id="shareBtn-email" title="Share via Email" onclick="shareOnSocial('email')">
+            ✉️
+          </button>
+        </div>
+        <p class="share-text" data-i18n="shareDesc">Share my portfolio with your friends and network</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="navbar.js"></script>
+  <script src="social-menu.js"></script>
+  <script src="api.js"></script>
+  <script>
+    // Translations
+    const homeTranslations = {
+      en: {
+        heroTitle: "Welcome to My Portfolio",
+        heroDesc: "Professional full-stack developer creating amazing digital solutions",
+        viewPortfolio: "View Portfolio",
+        contactMe: "Contact Me",
+        
+        aboutTitle: "About Me",
+        aboutDesc: "Passionate about creating beautiful, functional web applications",
+        professional: "Professional",
+        professionalDesc: "With 10+ years of experience in web development and design",
+        focused: "Focused",
+        focusedDesc: "Committed to delivering high-quality solutions on time",
+        innovative: "Innovative",
+        innovativeDesc: "Always exploring new technologies and best practices",
+        
+        servicesTitle: "Services",
+        servicesDesc: "Complete range of development and design services",
+        webDevelopment: "Web Development",
+        webDevDesc: "Full-stack web applications using modern technologies",
+        mobileApps: "Mobile Apps",
+        mobileAppsDesc: "Responsive and interactive mobile applications",
+        uiDesign: "UI/UX Design",
+        uiDesignDesc: "Beautiful interfaces and seamless user experiences",
+        consulting: "Consulting",
+        consultingDesc: "Expert advice for your technology needs",
+        cloudServices: "Cloud Services",
+        cloudServicesDesc: "Scalable cloud infrastructure and deployment",
+        security: "Security",
+        securityDesc: "Secure and protected applications",
+        
+        skillsTitle: "Skills",
+        skillsDesc: "Technical expertise across multiple domains",
+        
+        experienceTitle: "Experience",
+        experienceDesc: "Career progression and notable achievements",
+        seniorDeveloper: "Senior Full Stack Developer",
+        seniorDevDesc: "Leading development of enterprise applications and mentoring junior developers",
+        projectManager: "Project Manager",
+        projectMgrDesc: "Managed 50+ projects with teams of 5-10 developers",
+        fullStackDeveloper: "Full Stack Developer",
+        fullStackDevDesc: "Developed complex web applications for various clients",
+        juniorDeveloper: "Junior Developer",
+        juniorDevDesc: "Started learning and contributing to web development projects",
+        
+        contactTitle: "Get In Touch",
+        contactDesc: "Send me a message and I'll respond as soon as possible",
+        nameLabel: "Your Name",
+        emailLabel: "Email Address",
+        subjectLabel: "Subject",
+        messageLabel: "Message",
+        sendMessage: "Send Message",
+      },
+      fr: {
+        heroTitle: "Bienvenue sur Mon Portfolio",
+        heroDesc: "Développeur full-stack professionnel créant des solutions numériques incroyables",
+        viewPortfolio: "Voir le Portfolio",
+        contactMe: "Me Contacter",
+        
+        aboutTitle: "À Propos de Moi",
+        aboutDesc: "Passionné par la création d'applications web belles et fonctionnelles",
+        professional: "Professionnel",
+        professionalDesc: "Avec 10+ ans d'expérience en développement web et design",
+        focused: "Concentré",
+        focusedDesc: "Engagé à fournir des solutions de haute qualité à temps",
+        innovative: "Innovant",
+        innovativeDesc: "Toujours à la recherche de nouvelles technologies et bonnes pratiques",
+        
+        servicesTitle: "Services",
+        servicesDesc: "Gamme complète de services de développement et de conception",
+        webDevelopment: "Développement Web",
+        webDevDesc: "Applications web full-stack utilisant des technologies modernes",
+        mobileApps: "Applications Mobiles",
+        mobileAppsDesc: "Applications mobiles réactives et interactives",
+        uiDesign: "Design UI/UX",
+        uiDesignDesc: "Interfaces belles et expériences utilisateur fluides",
+        consulting: "Conseil",
+        consultingDesc: "Conseils d'experts pour vos besoins technologiques",
+        cloudServices: "Services Cloud",
+        cloudServicesDesc: "Infrastructure cloud évolutive et déploiement",
+        security: "Sécurité",
+        securityDesc: "Applications sécurisées et protégées",
+        
+        skillsTitle: "Compétences",
+        skillsDesc: "Expertise technique dans plusieurs domaines",
+        
+        experienceTitle: "Expérience",
+        experienceDesc: "Progression de carrière et réalisations notables",
+        seniorDeveloper: "Développeur Full Stack Senior",
+        seniorDevDesc: "Diriger le développement d'applications d'entreprise",
+        projectManager: "Chef de Projet",
+        projectMgrDesc: "Gestion de 50+ projets avec des équipes de 5-10 développeurs",
+        fullStackDeveloper: "Développeur Full Stack",
+        fullStackDevDesc: "Développement d'applications web complexes pour divers clients",
+        juniorDeveloper: "Développeur Junior",
+        juniorDevDesc: "Apprentissage et contribution aux projets de développement web",
+        
+        contactTitle: "Me Contacter",
+        contactDesc: "Envoyez-moi un message et je répondrai dès que possible",
+        nameLabel: "Votre Nom",
+        emailLabel: "Adresse E-mail",
+        subjectLabel: "Sujet",
+        messageLabel: "Message",
+        sendMessage: "Envoyer le Message",
+      },
+      ar: {
+        heroTitle: "أهلا في محفظتي",
+        heroDesc: "مطور متكامل محترف ينشئ حلولاً رقمية مذهلة",
+        viewPortfolio: "عرض المحفظة",
+        contactMe: "تواصل معي",
+        
+        aboutTitle: "عني",
+        aboutDesc: "متحمس لإنشاء تطبيقات ويب جميلة وفعالة",
+        professional: "احترافي",
+        professionalDesc: "مع 10+ سنوات من الخبرة في تطوير الويب والتصميم",
+        focused: "مركز",
+        focusedDesc: "ملتزم بتقديم حلول عالية الجودة في الوقت المحدد",
+        innovative: "مبتكر",
+        innovativeDesc: "دائماً أستكشف التقنيات الجديدة وأفضل الممارسات",
+        
+        servicesTitle: "الخدمات",
+        servicesDesc: "مجموعة كاملة من خدمات التطوير والتصميم",
+        webDevelopment: "تطوير الويب",
+        webDevDesc: "تطبيقات ويب متكاملة باستخدام التقنيات الحديثة",
+        mobileApps: "تطبيقات الهاتف المحمول",
+        mobileAppsDesc: "تطبيقات محمول سريعة الاستجابة وتفاعلية",
+        uiDesign: "تصميم واجهة المستخدم",
+        uiDesignDesc: "واجهات جميلة وتجارب مستخدم سلسة",
+        consulting: "استشارة",
+        consultingDesc: "نصيحة خبيرة لاحتياجاتك التكنولوجية",
+        cloudServices: "خدمات السحابة",
+        cloudServicesDesc: "البنية الأساسية السحابية القابلة للتوسع والنشر",
+        security: "الأمان",
+        securityDesc: "تطبيقات آمنة ومحمية",
+        
+        skillsTitle: "المهارات",
+        skillsDesc: "الخبرة التقنية عبر عدة مجالات",
+        
+        experienceTitle: "الخبرة",
+        experienceDesc: "تقدم مهني والإنجازات الملحوظة",
+        seniorDeveloper: "مطور Full Stack أول",
+        seniorDevDesc: "قيادة تطوير تطبيقات المؤسسة والإشراف على المطورين الجدد",
+        projectManager: "مدير المشروع",
+        projectMgrDesc: "إدارة 50+ مشروع مع فرق من 5-10 مطورين",
+        fullStackDeveloper: "مطور Full Stack",
+        fullStackDevDesc: "تطوير تطبيقات ويب معقدة لعملاء مختلفين",
+        juniorDeveloper: "مطور Junior",
+        juniorDevDesc: "بدأت التعلم والمساهمة في مشاريع تطوير الويب",
+        
+        contactTitle: "تواصل معي",
+        contactDesc: "أرسل لي رسالة وسأرد عليك في أقرب وقت ممكن",
+        nameLabel: "اسمك",
+        emailLabel: "عنوان البريد الإلكتروني",
+        subjectLabel: "الموضوع",
+        messageLabel: "الرسالة",
+        sendMessage: "إرسال الرسالة",
+      }
+    };
+
+    // Merge with existing translations
+    if (typeof translations !== 'undefined') {
+      Object.keys(homeTranslations).forEach(lang => {
+        if (!translations[lang]) translations[lang] = {};
+        translations[lang] = { ...homeTranslations[lang], ...translations[lang] };
+      });
+    }
+
+    // Handle contact form
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // Validation
+      if (!name || !email || !subject || !message) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        return;
+      }
+
+      const formData = {
+        name: name,
+        email: email,
+        subject: subject,
+        message: message
+      };
+
+      try {
+        const response = await API.contact.submit(formData);
+        
+        if (response.offline) {
+          alert('Message saved locally. Once your server is running, it will be sent automatically.\n\nTo start the server:\n1. cd backend\n2. npm install\n3. node server.js\n\nYour message has been saved and will be sent once connected.');
+        } else if (response && response.message) {
+          alert('✅ Message sent successfully! Thank you for contacting me.');
+        } else {
+          throw new Error('Invalid response from server');
+        }
+        
+        this.reset();
+      } catch (error) {
+        console.error('Contact form error:', error);
+        alert('⚠️ Backend server is not running.\n\nYour message will be saved locally and sent when the server starts.\n\nTo start the server:\n1. Open terminal\n2. cd backend\n3. npm install (first time only)\n4. node server.js\n5. Refresh the website\n\nServer runs on: http://localhost:5000');
+      }
+    });
+
+    // Social Media Sharing Functions
+    function shareOnSocial(platform) {
+      const pageUrl = window.location.href;
+      const title = 'Check out my professional portfolio!';
+      const text = 'Visit my portfolio to see my amazing projects and skills. Get in touch with me!';
+      const email = 'hello@portfolio.com';
+
+      switch(platform) {
+        case 'facebook':
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`, '_blank', 'width=600,height=400');
+          break;
+        
+        case 'twitter':
+          window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(text)}`, '_blank', 'width=600,height=400');
+          break;
+        
+        case 'linkedin':
+          window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`, '_blank', 'width=600,height=400');
+          break;
+        
+        case 'whatsapp':
+          window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + pageUrl)}`, '_blank');
+          break;
+        
+        case 'email':
+          window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(text + '\n\n' + pageUrl)}`;
+          break;
+      }
+    }
+
+    // Add translations for share section
+    if (typeof homeTranslations !== 'undefined') {
+      homeTranslations.en.shareTitle = 'Share My Contact';
+      homeTranslations.en.shareDesc = 'Share my portfolio with your friends and network';
+      
+      homeTranslations.fr.shareTitle = 'Partager Mon Portfolio';
+      homeTranslations.fr.shareDesc = 'Partagez mon portfolio avec vos amis et réseau';
+      
+      homeTranslations.ar.shareTitle = 'شارك ملفي الشخصي';
+      homeTranslations.ar.shareDesc = 'شارك ملفي الشخصي مع أصدقائك وشبكتك';
+    }
+
+    // Smooth scroll for links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

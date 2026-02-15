@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Our Amazing Projects</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="social-menu.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding-top: 70px;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.25);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      object-fit: cover;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+
+    .project-image-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-size: 3rem;
+    }
+
+    .project-info {
+      padding: 2rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      background: #f0f0f0;
+      color: #667eea;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 12px;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      border: 2px solid #667eea;
+      background: white;
+      color: #667eea;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn.active {
+      background: #667eea;
+      color: white;
+    }
+
+    .filter-btn:hover {
+      background: #667eea;
+      color: white;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .page-title {
+      font-size: 3rem;
+      color: #667eea;
+      margin: 3rem 0 1rem;
+      font-weight: bold;
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    .language-selector {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 100;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .language-selector select {
+      padding: 10px 15px;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #667eea;
+      background: white;
+      cursor: pointer;
+      min-width: 120px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .language-selector select:hover {
+      background: #f0f7ff;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+    }
+
+    .language-selector select option {
+      padding: 5px;
+      color: #667eea;
+    }
+
+    @media (max-width: 768px) {
+      .language-selector {
+        top: 75px;
+        right: 10px;
+      }
+
+      .language-selector select {
+        min-width: 100px;
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+    }
+
+    /* RTL Support */
+    html[dir="rtl"] .language-selector {
+      left: 20px;
+      right: auto;
+    }
+
+    html[dir="rtl"] .page-title {
+      text-align: right;
+    }
+
+    html[dir="rtl"] .page-subtitle {
+      text-align: right;
+    }
+
+    html[dir="rtl"] .filter-buttons {
+      direction: rtl;
+    }
+
+    html[dir="rtl"] .project-info {
+      text-align: right;
+    }
+
+    html[dir="rtl"] .project-tags {
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 768px) {
+      html[dir="rtl"] .language-selector {
+        left: 10px;
+        right: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <select id="languageSelect" onchange="changeLanguage(this.value)">
+      <option value="en">🇺🇸 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="ar">🇸🇦 العربية</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title" data-i18n="portfolioTitle">Our Portfolio</h1>
+    <p class="page-subtitle" data-i18n="portfolioDesc">Check out some of our amazing projects and work</p>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number">150+</div>
+        <div class="stat-label" data-i18n="projectsCompleted">Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">200+</div>
+        <div class="stat-label" data-i18n="clientsServed">Clients</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">15+</div>
+        <div class="stat-label" data-i18n="yearsExperience">Years</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">99%</div>
+        <div class="stat-label" data-i18n="satisfactionRate">Satisfaction</div>
+      </div>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
+      <button class="filter-btn" data-filter="web" data-i18n="filterWeb">Web</button>
+      <button class="filter-btn" data-filter="mobile" data-i18n="filterMobile">Mobile</button>
+      <button class="filter-btn" data-filter="design" data-i18n="filterDesign">Design</button>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Projects will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script src="navbar.js"></script>
+  <script src="social-menu.js"></script>
+  <script src="api.js"></script>
+  <script>
+    // Portfolio translations
+    const portfolioTranslations = {
+      en: {
+        portfolioTitle: "Our Portfolio",
+        portfolioDesc: "Check out some of our amazing projects and work",
+        projectsCompleted: "Projects Completed",
+        clientsServed: "Clients Served",
+        yearsExperience: "Years Experience",
+        satisfactionRate: "Satisfaction Rate",
+        filterAll: "All",
+        filterWeb: "Web Design",
+        filterMobile: "Mobile Apps",
+        filterDesign: "UI/UX Design",
+        projectTitle1: "E-Commerce Platform",
+        projectDesc1: "Full-stack e-commerce solution with payment integration",
+        projectTitle2: "Mobile Banking App",
+        projectDesc2: "Secure banking application for iOS & Android",
+        projectTitle3: "Social Media Dashboard",
+        projectDesc3: "Analytics dashboard for social media management",
+        projectTitle4: "Fitness Tracker",
+        projectDesc4: "Health & fitness tracking mobile application",
+        projectTitle5: "Design System",
+        projectDesc5: "Complete UI/UX design system and component library",
+        projectTitle6: "AI Chat Assistant",
+        projectDesc6: "AI-powered chatbot for customer support",
+        projectTitle7: "Travel Booking App",
+        projectDesc7: "Travel and hotel booking mobile application",
+        projectTitle8: "Brand Identity",
+        projectDesc8: "Complete brand identity and visual guidelines",
+        projectTitle9: "Learning Platform",
+        projectDesc9: "Online learning management system",
+      },
+      fr: {
+        portfolioTitle: "Notre Portfolio",
+        portfolioDesc: "Découvrez certains de nos projets et travaux incroyables",
+        projectsCompleted: "Projets Complétés",
+        clientsServed: "Clients Servis",
+        yearsExperience: "Années d'Expérience",
+        satisfactionRate: "Taux de Satisfaction",
+        filterAll: "Tous",
+        filterWeb: "Conception Web",
+        filterMobile: "Applications Mobiles",
+        filterDesign: "Design UI/UX",
+        projectTitle1: "Plateforme E-Commerce",
+        projectDesc1: "Solution e-commerce complète avec intégration de paiement",
+        projectTitle2: "Application Bancaire Mobile",
+        projectDesc2: "Application bancaire sécurisée pour iOS et Android",
+        projectTitle3: "Tableau de Bord Réseaux Sociaux",
+        projectDesc3: "Tableau de bord d'analyse pour la gestion des réseaux sociaux",
+        projectTitle4: "Suivi de Fitness",
+        projectDesc4: "Application mobile de suivi de la santé et du fitness",
+        projectTitle5: "Système de Design",
+        projectDesc5: "Système de conception UI/UX complète et bibliothèque de composants",
+        projectTitle6: "Assistant de Chat IA",
+        projectDesc6: "Chatbot alimenté par l'IA pour le support client",
+        projectTitle7: "Application de Réservation de Voyages",
+        projectDesc7: "Application mobile de réservation de voyages et d'hôtels",
+        projectTitle8: "Identité de Marque",
+        projectDesc8: "Identité de marque complète et guide visuel",
+        projectTitle9: "Plateforme d'Apprentissage",
+        projectDesc9: "Système de gestion de l'apprentissage en ligne",
+      },
+      ar: {
+        portfolioTitle: "محفظتنا",
+        portfolioDesc: "تحقق من بعض من مشاريعنا وأعمالنا المدهشة",
+        projectsCompleted: "المشاريع المكتملة",
+        clientsServed: "العملاء الذين تم خدمتهم",
+        yearsExperience: "سنوات الخبرة",
+        satisfactionRate: "معدل الرضا",
+        filterAll: "الكل",
+        filterWeb: "تصميم الويب",
+        filterMobile: "تطبيقات الهاتف المحمول",
+        filterDesign: "تصميم واجهة المستخدم",
+        projectTitle1: "منصة التجارة الإلكترونية",
+        projectDesc1: "حل التجارة الإلكترونية الكامل مع تكامل الدفع",
+        projectTitle2: "تطبيق المصرفية المحمولة",
+        projectDesc2: "تطبيق مصرفي آمن لنظام iOS و Android",
+        projectTitle3: "لوحة معلومات وسائل التواصل الاجتماعي",
+        projectDesc3: "لوحة معلومات تحليلية لإدارة وسائل التواصل الاجتماعي",
+        projectTitle4: "متتبع اللياقة البدنية",
+        projectDesc4: "تطبيق جوال لتتبع الصحة واللياقة البدنية",
+        projectTitle5: "نظام التصميم",
+        projectDesc5: "نظام تصميم واجهة المستخدم الكامل ومكتبة المكونات",
+        projectTitle6: "مساعد الدردشة بالذكاء الاصطناعي",
+        projectDesc6: "روبوت محادثة مدعوم بالذكاء الاصطناعي لدعم العملاء",
+        projectTitle7: "تطبيق حجز الرحلات",
+        projectDesc7: "تطبيق جوال لحجز الرحلات والفنادق",
+        projectTitle8: "هوية العلامة التجارية",
+        projectDesc8: "هوية العلامة التجارية الكاملة والإرشادات البصرية",
+        projectTitle9: "منصة التعلم",
+        projectDesc9: "نظام إدارة التعلم عبر الإنترنت",
+      }
+    };
+
+    // Merge with existing translations from navbar
+    if (typeof translations !== 'undefined') {
+      Object.keys(portfolioTranslations).forEach(lang => {
+        if (!translations[lang]) translations[lang] = {};
+        translations[lang] = { ...portfolioTranslations[lang], ...translations[lang] };
+      });
+    }
+
+    // Static fallback data with images
+    const staticProjects = [
+      { id: 1, titleKey: "projectTitle1", descKey: "projectDesc1", category: "web", icon: "🛍️", image: "https://images.unsplash.com/photo-1460925895917-aeb4b2b27c7a?w=500&h=400&fit=crop" },
+      { id: 2, titleKey: "projectTitle2", descKey: "projectDesc2", category: "mobile", icon: "💳", image: "https://images.unsplash.com/photo-1569163139394-de4798aa62b3?w=500&h=400&fit=crop" },
+      { id: 3, titleKey: "projectTitle3", descKey: "projectDesc3", category: "web", icon: "📊", image: "https://images.unsplash.com/photo-1590080876923-62b3e4d8e7ff?w=500&h=400&fit=crop" },
+      { id: 4, titleKey: "projectTitle4", descKey: "projectDesc4", category: "mobile", icon: "💪", image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=400&fit=crop" },
+      { id: 5, titleKey: "projectTitle5", descKey: "projectDesc5", category: "design", icon: "🎨", image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=400&fit=crop" },
+      { id: 6, titleKey: "projectTitle6", descKey: "projectDesc6", category: "web", icon: "🤖", image: "https://images.unsplash.com/photo-1677442d019cecf8978271a4f0d9d1907a149eafb4700dcc3e6b23b6e4a2a5a?w=500&h=400&fit=crop" },
+      { id: 7, titleKey: "projectTitle7", descKey: "projectDesc7", category: "mobile", icon: "✈️", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500&h=400&fit=crop" },
+      { id: 8, titleKey: "projectTitle8", descKey: "projectDesc8", category: "design", icon: "✨", image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=400&fit=crop" },
+      { id: 9, titleKey: "projectTitle9", descKey: "projectDesc9", category: "web", icon: "📚", image: "https://images.unsplash.com/photo-1516534775068-bb57fa68f21b?w=500&h=400&fit=crop" }
+    ];
+
+    // Get current language
+    function getCurrentLanguage() {
+      return localStorage.getItem('language') || 'en';
+    }
+
+    // Get translated text
+    function getTranslation(key) {
+      const lang = getCurrentLanguage();
+      if (translations && translations[lang] && translations[lang][key]) {
+        return translations[lang][key];
+      }
+      return key;
+    }
+
+    // Initialize projects
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set language selector to current language
+      const currentLang = getCurrentLanguage();
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = currentLang;
+      }
+      
+      renderProjects('all');
+      setupFilters();
+      applyTranslations();
+    });
+
+    // Change language function
+    function changeLanguage(lang) {
+      localStorage.setItem('language', lang);
+      const languageSelect = document.getElementById('languageSelect');
+      if (languageSelect) {
+        languageSelect.value = lang;
+      }
+      applyTranslations();
+      renderProjects('all');
+      // Dispatch event for navbar to update
+      document.dispatchEvent(new Event('languageChanged'));
+    }
+
+    // Apply translations to all elements
+    function applyTranslations() {
+      const currentLang = getCurrentLanguage();
+      // Set HTML direction for RTL languages
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = currentLang;
+      
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const text = getTranslation(key);
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+          element.placeholder = text;
+        } else {
+          element.textContent = text;
+        }
+      });
+    }
+
+    // Listen for language changes
+    document.addEventListener('languageChanged', function() {
+      applyTranslations();
+      renderProjects('all');
+    });
+
+    function renderProjects(filter) {
+      const grid = document.getElementById('projectsGrid');
+      const filtered = filter === 'all' ? staticProjects : staticProjects.filter(p => p.category === filter);
+      
+      grid.innerHTML = filtered.map(project => `
+        <div class="project-card" data-category="${project.category}">
+          <div class="project-image">
+            <img src="${project.image}" alt="${getTranslation(project.titleKey)}" style="display: block;" onerror="this.parentElement.innerHTML = '<div class=\"project-image-fallback\">${project.icon}</div>'">
+          </div>
+          <div class="project-info">
+            <h3 style="font-size: 1.3rem; color: #667eea; margin-bottom: 0.5rem;">${getTranslation(project.titleKey)}</h3>
+            <p style="color: #666; margin-bottom: 1rem;">${getTranslation(project.descKey)}</p>
+            <div class="project-tags">
+              <span class="tag">${project.category}</span>
+              <span class="tag">2024</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function setupFilters() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          renderProjects(this.getAttribute('data-filter'));
+        });
+      });
+    }
+  </script>
+</body>
+</html>
